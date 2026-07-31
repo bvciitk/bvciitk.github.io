@@ -1,15 +1,8 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "bvciitk",
+  "name": "bvciitk-changes",
   "compatibility_date": "2026-07-31",
   "assets": {
-    "directory": ".",
-    "exclude": [
-      ".git",
-      ".git/**",
-      "node_modules/**",
-      "janmashtami_by_ai/node_modules/**",
-      "janmashtami_by_ai/.next/**"
-    ]
+    "directory": "."
   }
 }
