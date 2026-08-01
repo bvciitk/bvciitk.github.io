@@ -26,7 +26,6 @@ import Navbar from "@/components/Navbar";
 import ScrollProgressBar from "@/components/ScrollProgressBar";
 import AmbientParticles from "@/components/AmbientParticles";
 import TransitionVignette from "@/components/TransitionVignette";
-import AmbientAudio from "@/components/AmbientAudio";
 import CountdownTimer from "@/components/CountdownTimer";
 
 // ─── Constants ───
@@ -825,9 +824,6 @@ export default function JanmashtamiCanvas() {
           </InteractiveBeat>
         </>
       )}
-
-      {/* ═══ AMBIENT AUDIO — opt-in floating speaker toggle ═══ */}
-      {isLoaded && <AmbientAudio />}
 
       {/* Scroll Indicator */}
       {isLoaded && <ScrollIndicator opacity={scrollIndicatorOpacity} />}
