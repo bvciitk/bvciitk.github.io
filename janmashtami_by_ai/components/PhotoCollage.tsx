@@ -46,9 +46,9 @@ const COLLAGE_IMAGES = [
 
 export default function PhotoCollage() {
   return (
-    <div className="relative mx-auto flex w-[82vw] max-w-[1300px] flex-col items-center justify-center p-2 md:p-4">
+    <div className="relative mx-auto flex w-[94vw] sm:w-[82vw] max-w-[1300px] flex-col items-center justify-center p-1 sm:p-4">
       {/* Floating Photo Collage with Fillet Corners & Vibrant Purple Borders */}
-      <div className="flex w-full flex-col gap-3.5 md:gap-5">
+      <div className="flex w-full flex-col gap-2.5 sm:gap-5">
         {/* ════ TOP ROW ════ */}
         <div className="flex w-full flex-col items-start justify-between gap-3.5 sm:flex-row md:gap-5">
           {/* Top Left: Kirtan Stage */}

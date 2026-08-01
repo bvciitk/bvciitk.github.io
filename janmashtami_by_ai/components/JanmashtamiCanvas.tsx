@@ -225,7 +225,7 @@ function SectionTitleOverlay({
 
           {/* Main Title */}
           <h1
-            className="mb-4 text-3xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#ffe8ad] via-[#f0d68a] to-[#d4a857] drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)] md:mb-6 md:text-5xl lg:text-6xl"
+            className="mb-4 text-2xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#ffe8ad] via-[#f0d68a] to-[#d4a857] drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)] md:mb-6 sm:text-4xl md:text-5xl lg:text-6xl"
             style={{ fontFamily: "var(--font-heading)" }}
           >
             {title}
@@ -240,7 +240,7 @@ function SectionTitleOverlay({
 
           {/* Body Text */}
           {bodyText && (
-            <p className="text-glow-ethereal text-base font-light leading-relaxed text-white/95 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] md:text-xl lg:text-2xl">
+            <p className="text-glow-ethereal text-sm font-light leading-relaxed text-white/95 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] md:text-xl lg:text-2xl">
               {bodyText}
             </p>
           )}
@@ -251,21 +251,21 @@ function SectionTitleOverlay({
 
   const alignClass =
     align === "left"
-      ? "items-start text-left pl-8 md:pl-16 lg:pl-24"
+      ? "items-start text-left pl-4 sm:pl-8 md:pl-16 lg:pl-24"
       : align === "right"
-        ? "items-end text-right pr-8 md:pr-16 lg:pr-24"
+        ? "items-end text-right pr-4 sm:pr-8 md:pr-16 lg:pr-24"
         : "items-center text-center";
 
   return (
     <div
-      className={`pointer-events-none fixed inset-0 z-30 flex flex-col justify-center px-6 ${alignClass}`}
+      className={`pointer-events-none fixed inset-0 z-30 flex flex-col justify-center px-4 sm:px-6 ${alignClass}`}
       style={{
         opacity,
         transform: `translateY(${yOffset}px)`,
       }}
     >
       <h2
-        className={`text-glow-gold-strong mb-3 sm:mb-4 max-w-4xl font-bold tracking-tight text-white/95 md:mb-6 ${
+        className={`text-glow-gold-strong mb-4 max-w-4xl font-bold tracking-tight text-white/95 md:mb-6 ${
           align === "center"
             ? "text-3xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl"
             : "text-2xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl"
@@ -276,7 +276,7 @@ function SectionTitleOverlay({
       </h2>
       {subtitle && (
         <p
-          className={`text-glow-ethereal max-w-2xl text-sm sm:text-lg font-light leading-relaxed text-white/60 md:text-xl lg:text-2xl ${
+          className={`text-glow-ethereal max-w-2xl text-sm font-light leading-relaxed text-white/80 md:text-xl lg:text-2xl ${
             align === "center" ? "" : "max-w-xl"
           }`}
         >
@@ -286,7 +286,7 @@ function SectionTitleOverlay({
       {cta && (
         <a
           href="#register"
-          className="pointer-events-auto mt-8 inline-flex items-center gap-3 rounded-full border border-[#d4a857]/30 bg-gradient-to-r from-[#d4a857]/10 to-[#d4a857]/5 px-8 py-4 text-sm font-medium tracking-[0.15em] uppercase text-[#f0d68a] backdrop-blur-sm transition-all duration-500 hover:border-[#d4a857]/60 hover:bg-[#d4a857]/15 hover:shadow-[0_0_30px_rgba(212,168,87,0.2)] md:mt-10 md:px-10 md:py-5 md:text-base"
+          className="pointer-events-auto mt-6 inline-flex items-center gap-2 rounded-full border border-[#d4a857]/30 bg-gradient-to-r from-[#d4a857]/10 to-[#d4a857]/5 px-6 py-3 text-xs font-medium tracking-[0.15em] uppercase text-[#f0d68a] backdrop-blur-sm transition-all duration-500 hover:border-[#d4a857]/60 hover:bg-[#d4a857]/15 hover:shadow-[0_0_30px_rgba(212,168,87,0.2)] md:mt-10 md:px-10 md:py-5 md:text-base"
         >
           <span>Register Now</span>
           <svg
@@ -329,19 +329,19 @@ function CenteredJanmashtamiLogo({ scrollProgress }: { scrollProgress: number })
 
   return (
     <div
-      className="pointer-events-none fixed inset-0 z-30 flex flex-col items-center justify-center p-4 text-center"
+      className="pointer-events-none fixed inset-0 z-30 flex flex-col items-center justify-center p-3 text-center"
       style={{
         opacity,
         transform: `translateY(${yOffset}px) scale(${scale})`,
         transition: "transform 0.1s ease-out, opacity 0.1s ease-out",
       }}
     >
-      <div className="relative flex max-w-4xl flex-col items-center justify-center p-4 text-center">
+      <div className="relative flex w-full max-w-4xl flex-col items-center justify-center p-2 text-center">
         {/* Subtle radial ambient glow behind logo & text for maximum readability */}
         <div className="absolute -inset-16 -z-10 rounded-full bg-radial from-[#d4a857]/20 via-black/60 to-transparent blur-3xl opacity-90 pointer-events-none" />
 
         {/* Logo Emblem with Glowing Halo */}
-        <div className="relative mb-3 h-24 w-24 sm:h-32 sm:w-32 overflow-hidden rounded-full border-2 border-[#d4a857] shadow-[0_0_40px_rgba(212,168,87,0.7)] md:h-40 md:w-40">
+        <div className="relative mb-3 h-24 w-24 overflow-hidden rounded-full border-2 border-[#d4a857] shadow-[0_0_40px_rgba(212,168,87,0.7)] sm:h-32 sm:w-32 md:h-40 md:w-40 md:mb-5">
           <NextImage
             src="/Janmashtami/images/logo.png"
             alt="Janmashtami BVC IITK Logo"
@@ -350,29 +350,29 @@ function CenteredJanmashtamiLogo({ scrollProgress }: { scrollProgress: number })
           />
         </div>
 
-        {/* Title — Fully responsive for mobile without clipping */}
+        {/* Title */}
         <h1
-          className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-normal sm:tracking-[0.08em] md:tracking-[0.14em] text-transparent bg-clip-text bg-gradient-to-r from-[#ffffff] via-[#f0d68a] to-[#d4a857] drop-shadow-[0_4px_28px_rgba(0,0,0,0.98)] drop-shadow-[0_0_40px_rgba(212,168,87,0.5)] text-center w-full max-w-full break-words px-2"
+          className="w-full text-center text-3xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#ffffff] via-[#f0d68a] to-[#d4a857] drop-shadow-[0_4px_28px_rgba(0,0,0,0.98)] drop-shadow-[0_0_40px_rgba(212,168,87,0.5)] sm:text-5xl md:text-7xl lg:text-8xl sm:tracking-[0.08em] md:tracking-[0.14em]"
           style={{ fontFamily: "var(--font-heading)" }}
         >
           JANMASHTAMI
         </h1>
 
         {/* Golden Ornamental Line */}
-        <div className="mx-auto my-2 sm:my-3 flex w-36 sm:w-48 items-center justify-center gap-3 opacity-85">
+        <div className="mx-auto my-2 flex w-36 items-center justify-center gap-2 opacity-85 sm:my-3 sm:w-48 sm:gap-3">
           <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent to-[#d4a857]" />
           <div className="h-1.5 w-1.5 rotate-45 bg-[#f0d68a] shadow-[0_0_8px_rgba(240,214,138,0.8)]" />
           <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent to-[#d4a857]" />
         </div>
 
         {/* Subtitle */}
-        <p className="text-[10px] sm:text-xs font-bold tracking-[0.18em] sm:tracking-[0.3em] uppercase text-[#f0d68a] drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)] md:text-base">
+        <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#f0d68a] drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)] sm:text-xs md:text-base sm:tracking-[0.3em]">
           Bhaktivedanta Club • IIT Kanpur
         </p>
 
         {/* Sanskrit Mantra Banner */}
-        <div className="mt-2.5 sm:mt-4 max-w-xl rounded-full border border-[#d4a857]/30 bg-black/40 px-3 py-1.5 sm:px-6 sm:py-2 backdrop-blur-sm shadow-[0_0_20px_rgba(0,0,0,0.7)]">
-          <p className="font-serif text-[10px] sm:text-xs tracking-wider text-[#ffe8ad] md:text-sm">
+        <div className="mt-3 max-w-full rounded-2xl border border-[#d4a857]/30 bg-black/50 px-4 py-1.5 backdrop-blur-sm shadow-[0_0_20px_rgba(0,0,0,0.7)] sm:mt-4 sm:rounded-full sm:px-6 sm:py-2">
+          <p className="font-serif text-[10px] tracking-normal text-[#ffe8ad] sm:text-xs md:text-sm sm:tracking-wider leading-tight">
             हरे कृष्ण हरे कृष्ण कृष्ण कृष्ण हरे हरे || हरे राम हरे राम राम राम हरे हरे
           </p>
         </div>
