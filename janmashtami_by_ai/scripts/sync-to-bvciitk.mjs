@@ -6,7 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const sourceDir = path.resolve(__dirname, "../out");
-const targetDir = path.resolve(__dirname, "../../bvciitk/Janmashtami");
+const targetDir = path.resolve(__dirname, "../../Janmashtami");
 
 if (!fs.existsSync(sourceDir)) {
   console.error(`Source directory ${sourceDir} does not exist. Run 'npm run build' first.`);

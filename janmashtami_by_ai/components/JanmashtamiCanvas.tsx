@@ -471,52 +471,104 @@ export default function JanmashtamiCanvas() {
     return 1;
   }, [currentProgress]);
 
-  // ─── Preload Images ───
+  const lastDrawnImageRef = useRef<HTMLImageElement | null>(null);
+
+  // Helper to get the target image or nearest loaded keyframe/neighbor
+  const getClosestLoadedFrame = useCallback((targetIdx: number): HTMLImageElement | null => {
+    const images = imagesRef.current;
+    if (images[targetIdx]) return images[targetIdx];
+
+    let distance = 1;
+    while (targetIdx - distance >= 0 || targetIdx + distance < TOTAL_FRAMES) {
+      if (targetIdx - distance >= 0 && images[targetIdx - distance]) {
+        return images[targetIdx - distance];
+      }
+      if (targetIdx + distance < TOTAL_FRAMES && images[targetIdx + distance]) {
+        return images[targetIdx + distance];
+      }
+      distance++;
+    }
+    return null;
+  }, []);
+
+  // ─── Progressive Keyframe Preload ───
   useEffect(() => {
     let mounted = true;
-    const images: (HTMLImageElement | null)[] = new Array(TOTAL_FRAMES).fill(
-      null
-    );
-    let loadedCount = 0;
+    const images: (HTMLImageElement | null)[] = new Array(TOTAL_FRAMES).fill(null);
+    imagesRef.current = images;
 
-    const BATCH_SIZE = 15;
+    // Stage 1: Keyframes spaced every 6 frames (~50 keyframes total for ultra-fast startup)
+    const KEYFRAME_STEP = 6;
+    const keyframeIndices: number[] = [];
+    for (let i = 0; i < TOTAL_FRAMES; i += KEYFRAME_STEP) {
+      keyframeIndices.push(i);
+    }
+    if (keyframeIndices[keyframeIndices.length - 1] !== TOTAL_FRAMES - 1) {
+      keyframeIndices.push(TOTAL_FRAMES - 1);
+    }
 
-    async function loadBatch(startIdx: number) {
-      const endIdx = Math.min(startIdx + BATCH_SIZE, TOTAL_FRAMES);
-      const promises: Promise<void>[] = [];
+    const totalKeyframes = keyframeIndices.length;
+    let loadedKeyframeCount = 0;
 
-      for (let i = startIdx; i < endIdx; i++) {
-        promises.push(
-          new Promise<void>((resolve) => {
-            const img = new window.Image();
-            img.onload = () => {
-              if (!mounted) return;
-              images[i] = img;
-              loadedCount++;
-              setLoadProgress(loadedCount / TOTAL_FRAMES);
-              resolve();
-            };
-            img.onerror = () => {
-              loadedCount++;
-              setLoadProgress(loadedCount / TOTAL_FRAMES);
-              resolve();
-            };
-            img.src = getFrameSrc(i + 1);
+    const loadSingleFrame = (idx: number): Promise<void> => {
+      return new Promise<void>((resolve) => {
+        if (images[idx]) {
+          resolve();
+          return;
+        }
+        const img = new window.Image();
+        img.onload = () => {
+          if (mounted) images[idx] = img;
+          resolve();
+        };
+        img.onerror = () => {
+          resolve();
+        };
+        img.src = getFrameSrc(idx + 1);
+      });
+    };
+
+    // Stage 1: Load essential keyframes in parallel batches
+    async function loadKeyframes() {
+      const BATCH_SIZE = 10;
+      for (let i = 0; i < keyframeIndices.length; i += BATCH_SIZE) {
+        if (!mounted) return;
+        const batch = keyframeIndices.slice(i, i + BATCH_SIZE);
+        await Promise.all(
+          batch.map(async (idx) => {
+            await loadSingleFrame(idx);
+            if (mounted) {
+              loadedKeyframeCount++;
+              setLoadProgress(loadedKeyframeCount / totalKeyframes);
+            }
           })
         );
       }
+    }
 
-      await Promise.all(promises);
+    // Stage 2: Load remaining intermediate frames in background
+    async function loadRemainingFrames() {
+      const remainingIndices: number[] = [];
+      for (let i = 0; i < TOTAL_FRAMES; i++) {
+        if (!keyframeIndices.includes(i)) {
+          remainingIndices.push(i);
+        }
+      }
 
-      if (mounted && endIdx < TOTAL_FRAMES) {
-        await loadBatch(endIdx);
+      const BATCH_SIZE = 10;
+      for (let i = 0; i < remainingIndices.length; i += BATCH_SIZE) {
+        if (!mounted) return;
+        const batch = remainingIndices.slice(i, i + BATCH_SIZE);
+        await Promise.all(batch.map((idx) => loadSingleFrame(idx)));
+        await new Promise((res) => setTimeout(res, 40));
       }
     }
 
-    loadBatch(0).then(() => {
+    // Execute Stage 1 (unlock UI immediately), then Stage 2 in background
+    loadKeyframes().then(() => {
       if (mounted) {
-        imagesRef.current = images;
         setIsLoaded(true);
+        loadRemainingFrames();
       }
     });
 
@@ -526,64 +578,70 @@ export default function JanmashtamiCanvas() {
   }, []);
 
   // ─── Canvas Drawing (cover fit — fills entire viewport) ───
-  const drawFrame = useCallback((frameIndex: number) => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+  const drawFrame = useCallback(
+    (frameIndex: number) => {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
 
-    const clampedIndex = Math.min(
-      Math.max(frameIndex, 0),
-      TOTAL_FRAMES - 1
-    );
+      const clampedIndex = Math.min(
+        Math.max(frameIndex, 0),
+        TOTAL_FRAMES - 1
+      );
 
-    if (clampedIndex === lastDrawnFrame.current) return;
+      const img = getClosestLoadedFrame(clampedIndex);
+      if (!img) return;
 
-    const img = imagesRef.current[clampedIndex];
-    if (!img) return;
+      if (img === lastDrawnImageRef.current && clampedIndex === lastDrawnFrame.current) {
+        return;
+      }
 
-    lastDrawnFrame.current = clampedIndex;
+      lastDrawnFrame.current = clampedIndex;
+      lastDrawnImageRef.current = img;
 
-    const dpr = window.devicePixelRatio || 1;
-    const displayW = window.innerWidth;
-    const displayH = window.innerHeight;
+      const dpr = window.devicePixelRatio || 1;
+      const displayW = window.innerWidth;
+      const displayH = window.innerHeight;
 
-    if (
-      canvas.width !== displayW * dpr ||
-      canvas.height !== displayH * dpr
-    ) {
-      canvas.width = displayW * dpr;
-      canvas.height = displayH * dpr;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    }
+      if (
+        canvas.width !== displayW * dpr ||
+        canvas.height !== displayH * dpr
+      ) {
+        canvas.width = displayW * dpr;
+        canvas.height = displayH * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
 
-    // High quality crisp image rendering
-    ctx.imageSmoothingEnabled = true;
-    ctx.imageSmoothingQuality = "high";
+      // High quality crisp image rendering
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = "high";
 
-    // Clear
-    ctx.clearRect(0, 0, displayW, displayH);
+      // Clear
+      ctx.clearRect(0, 0, displayW, displayH);
 
-    // "Cover" fit — fills entire viewport, crops overflow
-    const imgAspect = img.naturalWidth / img.naturalHeight;
-    const canvasAspect = displayW / displayH;
+      // "Cover" fit — fills entire viewport, crops overflow
+      const imgAspect = img.naturalWidth / img.naturalHeight;
+      const canvasAspect = displayW / displayH;
 
-    let drawW: number, drawH: number, drawX: number, drawY: number;
+      let drawW: number, drawH: number, drawX: number, drawY: number;
 
-    if (canvasAspect > imgAspect) {
-      drawW = displayW;
-      drawH = displayW / imgAspect;
-      drawX = 0;
-      drawY = (displayH - drawH) / 2;
-    } else {
-      drawH = displayH;
-      drawW = displayH * imgAspect;
-      drawX = (displayW - drawW) / 2;
-      drawY = 0;
-    }
+      if (canvasAspect > imgAspect) {
+        drawW = displayW;
+        drawH = displayW / imgAspect;
+        drawX = 0;
+        drawY = (displayH - drawH) / 2;
+      } else {
+        drawH = displayH;
+        drawW = displayH * imgAspect;
+        drawX = (displayW - drawW) / 2;
+        drawY = 0;
+      }
 
-    ctx.drawImage(img, drawX, drawY, drawW, drawH);
-  }, []);
+      ctx.drawImage(img, drawX, drawY, drawW, drawH);
+    },
+    [getClosestLoadedFrame]
+  );
 
   const navTargetFrameRef = useRef<number | null>(null);
 
