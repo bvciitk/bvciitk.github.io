@@ -46,6 +46,15 @@ export const EVENTS_DATA: EventItem[] = [
     category: "Performance",
   },
   {
+    id: "3d-exhibition",
+    title: "3D Theme Exhibition",
+    subtitle: "Interactive Pastimes & Mythological Dioramas",
+    description:
+      "Experience the captivating stories of Srimad Bhagavatam brought to life through intricate 3D thematic models and cave exhibits, showcasing Lord Krishna's heroic pastimes such as the deliverance of Aghasura in Vrindavan.",
+    image: "/Janmashtami/images/AghasuraExhibition.jpg",
+    category: "Exhibition",
+  },
+  {
     id: "interschool",
     title: "Competitions",
     subtitle: "Vedic Quiz, Shloka Recitation & Painting",
