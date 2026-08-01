@@ -5,24 +5,28 @@ import { ReactLenis } from "lenis/react";
 
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
   const [isMobile, setIsMobile] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
+  if (mounted && isMobile) {
+    return <>{children}</>;
+  }
+
   return (
     <ReactLenis
       root
       options={{
-        lerp: isMobile ? 0.12 : 0.08,
-        duration: isMobile ? 0.8 : 1.2,
+        lerp: 0.08,
+        duration: 1.2,
         smoothWheel: true,
         wheelMultiplier: 1.0,
-        touchMultiplier: isMobile ? 1.0 : 1.2,
-        syncTouch: false,
       }}
     >
       {children}
