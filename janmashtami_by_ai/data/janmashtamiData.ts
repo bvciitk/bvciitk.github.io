@@ -55,6 +55,24 @@ export const EVENTS_DATA: EventItem[] = [
     category: "Exhibition",
   },
   {
+    id: "rangoli-art",
+    title: "Vedic Rangoli Art",
+    subtitle: "Sacred Peacock Motif & Floral Decorations",
+    description:
+      "Intricate traditional Rangoli designs crafted by students and devotees using vibrant natural colors, flower petals, and sacred peacock motifs to welcome Lord Krishna with classic Indian artistic reverence.",
+    image: "/Janmashtami/images/RangoliArt.jpg",
+    category: "Decoration",
+  },
+  {
+    id: "interactive-quiz",
+    title: "Interactive Games & Quiz",
+    subtitle: "Real-Time Digital Quiz & Spot Trivia",
+    description:
+      "Engaging digital quizzes and live spot games hosted on smartphones and screens, testing knowledge of Bhagavad Gita, Indian heritage, and Vedic wisdom with instant leaderboard prizes.",
+    image: "/Janmashtami/images/InteractiveQuiz.jpg",
+    category: "Game",
+  },
+  {
     id: "interschool",
     title: "Competitions",
     subtitle: "Vedic Quiz, Shloka Recitation & Painting",
@@ -78,7 +96,7 @@ export const EVENTS_DATA: EventItem[] = [
     subtitle: "Bhagavad Gita's Timeless Philosophy",
     description:
       "Visual poster presentations demonstrating the perennial philosophy and scientific wisdom of ancient Vedic India in a concise, accessible manner.",
-    image: "/Janmashtami/images/Poster.jpg",
+    image: "/Janmashtami/images/IKS_Exhibition_Poster.jpg",
     category: "Exhibition",
   },
   {

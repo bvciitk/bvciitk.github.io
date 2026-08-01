@@ -67,7 +67,7 @@ export default function InteractiveBeat({
 
   return (
     <div
-      className={`fixed inset-0 z-30 flex items-center justify-center px-4 py-8 md:px-8 ${
+      className={`fixed inset-0 z-30 flex items-center justify-center px-2 py-3 sm:px-4 sm:py-8 overflow-y-auto max-h-screen ${
         opacity > 0.1 ? "pointer-events-auto" : "pointer-events-none"
       } ${className}`}
       style={{

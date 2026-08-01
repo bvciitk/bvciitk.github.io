@@ -265,10 +265,10 @@ function SectionTitleOverlay({
       }}
     >
       <h2
-        className={`text-glow-gold-strong mb-4 max-w-4xl font-bold tracking-tight text-white/95 md:mb-6 ${
+        className={`text-glow-gold-strong mb-3 sm:mb-4 max-w-4xl font-bold tracking-tight text-white/95 md:mb-6 ${
           align === "center"
-            ? "text-5xl md:text-7xl lg:text-8xl xl:text-9xl"
-            : "text-4xl md:text-6xl lg:text-7xl xl:text-8xl"
+            ? "text-3xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl"
+            : "text-2xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl"
         }`}
         style={{ fontFamily: "var(--font-heading)" }}
       >
@@ -276,7 +276,7 @@ function SectionTitleOverlay({
       </h2>
       {subtitle && (
         <p
-          className={`text-glow-ethereal max-w-2xl text-lg font-light leading-relaxed text-white/60 md:text-xl lg:text-2xl ${
+          className={`text-glow-ethereal max-w-2xl text-sm sm:text-lg font-light leading-relaxed text-white/60 md:text-xl lg:text-2xl ${
             align === "center" ? "" : "max-w-xl"
           }`}
         >
@@ -341,7 +341,7 @@ function CenteredJanmashtamiLogo({ scrollProgress }: { scrollProgress: number })
         <div className="absolute -inset-16 -z-10 rounded-full bg-radial from-[#d4a857]/20 via-black/60 to-transparent blur-3xl opacity-90 pointer-events-none" />
 
         {/* Logo Emblem with Glowing Halo */}
-        <div className="relative mb-5 h-32 w-32 overflow-hidden rounded-full border-2 border-[#d4a857] shadow-[0_0_55px_rgba(212,168,87,0.7),0_0_20px_rgba(255,232,173,0.5)] md:h-40 md:w-40">
+        <div className="relative mb-3 h-24 w-24 sm:h-32 sm:w-32 overflow-hidden rounded-full border-2 border-[#d4a857] shadow-[0_0_40px_rgba(212,168,87,0.7)] md:h-40 md:w-40">
           <NextImage
             src="/Janmashtami/images/logo.png"
             alt="Janmashtami BVC IITK Logo"
@@ -350,29 +350,29 @@ function CenteredJanmashtamiLogo({ scrollProgress }: { scrollProgress: number })
           />
         </div>
 
-        {/* Title */}
+        {/* Title — Fully responsive for mobile without clipping */}
         <h1
-          className="text-5xl font-extrabold tracking-[0.08em] md:tracking-[0.14em] text-transparent bg-clip-text bg-gradient-to-r from-[#ffffff] via-[#f0d68a] to-[#d4a857] drop-shadow-[0_4px_28px_rgba(0,0,0,0.98)] drop-shadow-[0_0_40px_rgba(212,168,87,0.5)] md:text-7xl lg:text-8xl"
+          className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-normal sm:tracking-[0.08em] md:tracking-[0.14em] text-transparent bg-clip-text bg-gradient-to-r from-[#ffffff] via-[#f0d68a] to-[#d4a857] drop-shadow-[0_4px_28px_rgba(0,0,0,0.98)] drop-shadow-[0_0_40px_rgba(212,168,87,0.5)] text-center w-full max-w-full break-words px-2"
           style={{ fontFamily: "var(--font-heading)" }}
         >
           JANMASHTAMI
         </h1>
 
         {/* Golden Ornamental Line */}
-        <div className="mx-auto my-3 flex w-48 items-center justify-center gap-3 opacity-85">
+        <div className="mx-auto my-2 sm:my-3 flex w-36 sm:w-48 items-center justify-center gap-3 opacity-85">
           <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent to-[#d4a857]" />
           <div className="h-1.5 w-1.5 rotate-45 bg-[#f0d68a] shadow-[0_0_8px_rgba(240,214,138,0.8)]" />
           <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent to-[#d4a857]" />
         </div>
 
         {/* Subtitle */}
-        <p className="text-xs font-bold tracking-[0.3em] uppercase text-[#f0d68a] drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)] md:text-base">
+        <p className="text-[10px] sm:text-xs font-bold tracking-[0.18em] sm:tracking-[0.3em] uppercase text-[#f0d68a] drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)] md:text-base">
           Bhaktivedanta Club • IIT Kanpur
         </p>
 
         {/* Sanskrit Mantra Banner */}
-        <div className="mt-4 max-w-xl rounded-full border border-[#d4a857]/30 bg-black/40 px-6 py-2 backdrop-blur-sm shadow-[0_0_20px_rgba(0,0,0,0.7)]">
-          <p className="font-serif text-xs tracking-wider text-[#ffe8ad] md:text-sm">
+        <div className="mt-2.5 sm:mt-4 max-w-xl rounded-full border border-[#d4a857]/30 bg-black/40 px-3 py-1.5 sm:px-6 sm:py-2 backdrop-blur-sm shadow-[0_0_20px_rgba(0,0,0,0.7)]">
+          <p className="font-serif text-[10px] sm:text-xs tracking-wider text-[#ffe8ad] md:text-sm">
             हरे कृष्ण हरे कृष्ण कृष्ण कृष्ण हरे हरे || हरे राम हरे राम राम राम हरे हरे
           </p>
         </div>
