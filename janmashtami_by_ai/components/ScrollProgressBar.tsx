@@ -11,8 +11,8 @@ interface ScrollProgressBarProps {
 const SECTION_MARKERS = [
   { at: 0.08, label: "Home" },
   { at: 0.26, label: "Events" },
-  { at: 0.50, label: "Gratitude" },
-  { at: 0.74, label: "Schedule" },
+  { at: 0.50, label: "Aftermovies" },
+  { at: 0.74, label: "Gratitude" },
   { at: 0.98, label: "Contact" },
 ];
 

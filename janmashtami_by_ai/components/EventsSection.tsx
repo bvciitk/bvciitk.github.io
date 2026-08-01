@@ -9,7 +9,7 @@ export default function EventsSection() {
   const activeEvent = EVENTS_DATA.find((e) => e.id === activeTab) || EVENTS_DATA[0];
 
   return (
-    <div className="w-full max-w-5xl rounded-3xl border border-[#d4a857]/40 bg-gradient-to-br from-[#0c051a]/35 via-black/25 to-[#140a26]/35 p-5 shadow-[0_0_50px_rgba(212,168,87,0.25),0_10px_40px_rgba(0,0,0,0.6)] backdrop-blur-xl md:p-8">
+    <div className="w-full max-w-5xl rounded-3xl border border-[#d4a857]/40 bg-transparent p-5 shadow-[0_0_50px_rgba(212,168,87,0.15)] backdrop-blur-xs md:p-8">
       {/* Title Header */}
       <div className="mb-6 text-center">
         <h2
@@ -31,10 +31,10 @@ export default function EventsSection() {
             <button
               key={event.id}
               onClick={() => setActiveTab(event.id)}
-              className={`relative rounded-full px-4 py-2 text-xs font-bold tracking-wide backdrop-blur-md transition-all duration-300 ease-out hover:scale-105 active:scale-95 md:px-5 md:py-2.5 md:text-sm ${
+              className={`relative rounded-full px-4 py-2 text-xs font-bold tracking-wide transition-all duration-300 ease-out hover:scale-105 active:scale-95 md:px-5 md:py-2.5 md:text-sm ${
                 isActive
-                  ? "border-2 border-[#ffe8ad] bg-gradient-to-r from-[#d4a857]/70 via-[#f0d68a]/50 to-[#d4a857]/70 text-white shadow-[0_0_30px_rgba(240,214,138,0.8),0_0_15px_rgba(212,168,87,0.5)] ring-2 ring-[#d4a857]/50 scale-105"
-                  : "border-2 border-white/20 bg-black/40 text-white/75 hover:border-[#d4a857]/60 hover:bg-black/60 hover:text-white hover:shadow-[0_0_15px_rgba(212,168,87,0.3)]"
+                  ? "border-2 border-[#ffe8ad] bg-gradient-to-r from-[#d4a857]/40 via-[#f0d68a]/30 to-[#d4a857]/40 text-white shadow-[0_0_25px_rgba(240,214,138,0.6)] ring-2 ring-[#d4a857]/50 scale-105"
+                  : "border-2 border-white/20 bg-transparent text-white/90 hover:border-[#d4a857]/60 hover:text-white hover:shadow-[0_0_15px_rgba(212,168,87,0.3)]"
               }`}
             >
               {event.title}
@@ -44,7 +44,7 @@ export default function EventsSection() {
       </div>
 
       {/* Active Event Card */}
-      <div className="grid grid-cols-1 items-center gap-6 rounded-2xl border border-[#d4a857]/35 bg-gradient-to-r from-[#0a0514]/30 via-black/20 to-[#0a0514]/30 p-4 backdrop-blur-lg shadow-[0_0_30px_rgba(0,0,0,0.5)] md:grid-cols-12 md:p-6">
+      <div className="grid grid-cols-1 items-center gap-6 rounded-2xl border border-[#d4a857]/35 bg-transparent p-4 backdrop-blur-xs shadow-[0_0_30px_rgba(0,0,0,0.3)] md:grid-cols-12 md:p-6">
         {/* Image Column */}
         <div className="relative h-48 w-full overflow-hidden rounded-xl border border-[#d4a857]/40 shadow-xl md:col-span-5 md:h-64">
           <Image

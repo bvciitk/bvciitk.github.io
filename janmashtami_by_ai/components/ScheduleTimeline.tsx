@@ -8,7 +8,7 @@ export default function ScheduleTimeline() {
   const activeItem = SCHEDULE_DATA[selectedIndex];
 
   return (
-    <div className="w-full max-w-5xl rounded-3xl border border-[#d4a857]/40 bg-gradient-to-br from-[#0c051a]/35 via-black/25 to-[#140a26]/35 p-5 shadow-[0_0_50px_rgba(212,168,87,0.25),0_10px_40px_rgba(0,0,0,0.6)] backdrop-blur-xl md:p-8">
+    <div className="w-full max-w-5xl rounded-3xl border border-[#d4a857]/40 bg-transparent p-5 shadow-[0_0_50px_rgba(212,168,87,0.15)] backdrop-blur-xs md:p-8">
       {/* Title */}
       <div className="mb-6 text-center">
         <h2
@@ -30,12 +30,12 @@ export default function ScheduleTimeline() {
             <button
               key={idx}
               onClick={() => setSelectedIndex(idx)}
-              className={`flex shrink-0 flex-col items-center rounded-xl p-3 text-center backdrop-blur-md transition-all duration-300 ease-out hover:scale-105 active:scale-95 ${
+              className={`flex shrink-0 flex-col items-center rounded-xl p-3 text-center transition-all duration-300 ease-out hover:scale-105 active:scale-95 ${
                 isSelected
-                  ? "border-2 border-[#ffe8ad] bg-gradient-to-r from-[#d4a857]/60 via-[#f0d68a]/50 to-[#d4a857]/60 text-white shadow-[0_0_25px_rgba(240,214,138,0.7)] ring-2 ring-[#d4a857]/50 scale-105"
+                  ? "border-2 border-[#ffe8ad] bg-gradient-to-r from-[#d4a857]/40 via-[#f0d68a]/30 to-[#d4a857]/40 text-white shadow-[0_0_20px_rgba(240,214,138,0.6)] ring-2 ring-[#d4a857]/50 scale-105"
                   : item.highlight
-                  ? "border-2 border-[#d4a857]/60 bg-black/40 text-[#f0d68a] hover:bg-[#d4a857]/20 hover:border-[#ffe8ad]"
-                  : "border-2 border-white/20 bg-black/30 text-white/75 hover:border-white/50 hover:bg-black/50"
+                  ? "border-2 border-[#d4a857]/60 bg-transparent text-[#f0d68a] hover:bg-[#d4a857]/15 hover:border-[#ffe8ad]"
+                  : "border-2 border-white/20 bg-transparent text-white/90 hover:border-white/50 hover:bg-black/20"
               }`}
             >
               <span className="text-xs font-mono font-bold text-[#ffe8ad] drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]">{item.time}</span>
@@ -46,7 +46,7 @@ export default function ScheduleTimeline() {
       </div>
 
       {/* Selected Schedule Detail Card */}
-      <div className="relative rounded-2xl border border-[#d4a857]/40 bg-gradient-to-r from-[#0a0514]/30 via-black/20 to-[#0a0514]/30 p-5 backdrop-blur-lg shadow-[0_0_30px_rgba(0,0,0,0.5)] md:p-8">
+      <div className="relative rounded-2xl border border-[#d4a857]/40 bg-transparent p-5 backdrop-blur-xs shadow-[0_0_30px_rgba(0,0,0,0.3)] md:p-8">
         <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
           <div>
             <div className="inline-flex items-center gap-2 rounded-full border border-[#d4a857]/50 bg-[#d4a857]/20 px-3.5 py-1 text-xs font-mono font-bold text-[#ffe8ad] shadow-[0_0_15px_rgba(212,168,87,0.3)]">

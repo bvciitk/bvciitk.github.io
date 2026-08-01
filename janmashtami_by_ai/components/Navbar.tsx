@@ -26,9 +26,9 @@ export default function Navbar({ onNavigate }: NavbarProps) {
   const navLinks = [
     { label: "Home", percent: 0.0 },
     { label: "Events", percent: 0.26 },
-    { label: "Gratitude", percent: 0.5 },
-    { label: "Schedule", percent: 0.74 },
-    { label: "Contact Us", percent: 0.95 },
+    { label: "Aftermovies", percent: 0.50 },
+    { label: "Gratitude", percent: 0.74 },
+    { label: "Contact Us", percent: 1.0 },
   ];
 
   return (

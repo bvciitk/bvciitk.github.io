@@ -50,7 +50,7 @@ export default function AmbientParticles({
 
   return (
     <div
-      className="pointer-events-none fixed inset-0 z-20 overflow-hidden"
+      className="pointer-events-none fixed inset-0 z-20 overflow-hidden hidden md:block"
       aria-hidden="true"
     >
       {particles.map((p) => (

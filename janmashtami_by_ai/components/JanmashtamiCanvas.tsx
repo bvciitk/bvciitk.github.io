@@ -17,10 +17,10 @@ import NextImage from "next/image";
 import InteractiveBeat from "@/components/InteractiveBeat";
 import HeroSection from "@/components/HeroSection";
 import EventsSection from "@/components/EventsSection";
-import ScheduleTimeline from "@/components/ScheduleTimeline";
+import AftermoviesSection from "@/components/AftermoviesSection";
 import GratitudeSection from "@/components/GratitudeSection";
 import HighlightsGallery from "@/components/HighlightsGallery";
-import RegistrationFooter from "@/components/RegistrationFooter";
+import PhotoCollage from "@/components/PhotoCollage";
 import SiteFooter from "@/components/SiteFooter";
 import Navbar from "@/components/Navbar";
 import ScrollProgressBar from "@/components/ScrollProgressBar";
@@ -212,7 +212,7 @@ function SectionTitleOverlay({
           transform: `translateY(${yOffset}px)`,
         }}
       >
-        <div className="relative max-w-4xl rounded-3xl border border-[#d4a857]/30 bg-gradient-to-b from-[#0a0514]/70 via-[#080310]/60 to-[#040108]/70 p-6 text-center shadow-[0_0_60px_rgba(0,0,0,0.7),0_0_30px_rgba(212,168,87,0.15)] backdrop-blur-md md:p-12">
+        <div className="relative max-w-4xl rounded-3xl border border-[#d4a857]/40 bg-transparent p-6 text-center shadow-[0_0_50px_rgba(212,168,87,0.15)] backdrop-blur-xs md:p-12">
           {/* Subtle ambient glow ring */}
           <div className="absolute -inset-1 -z-10 rounded-3xl bg-gradient-to-r from-[#d4a857]/20 via-transparent to-[#f0d68a]/20 blur-xl opacity-70" />
 
@@ -408,14 +408,14 @@ function getFrameIndexFromScroll(progress: number): number {
     const t = (progress - 0.32) / (0.44 - 0.32);
     videoProgress = 0.25 + 0.25 * smoothstep(t);
   } else if (progress <= 0.56) {
-    // Gratitude & Mentors (0.44 -> 0.56): Hold video at 50%
+    // Aftermovies & About Janmashtami (0.44 -> 0.56): Hold video at 50%
     videoProgress = 0.50;
   } else if (progress <= 0.68) {
     // Video Motion 3 (0.56 -> 0.68): Advance video 50% -> 75%
     const t = (progress - 0.56) / (0.68 - 0.56);
     videoProgress = 0.50 + 0.25 * smoothstep(t);
   } else if (progress <= 0.80) {
-    // Schedule Timeline (0.68 -> 0.80): Hold video at 75%
+    // Gratitude & Mentors (0.68 -> 0.80): Hold video at 75%
     videoProgress = 0.75;
   } else if (progress <= 0.90) {
     // Video Motion 4 (0.80 -> 0.90): Advance video 75% -> 100%
@@ -447,6 +447,17 @@ export default function JanmashtamiCanvas() {
   // ─── Reduced motion ───
   const reducedMotion = usePrefersReducedMotion();
 
+  const [isMobileDevice, setIsMobileDevice] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const checkMobile = () => setIsMobileDevice(window.innerWidth < 768);
+      checkMobile();
+      window.addEventListener("resize", checkMobile);
+      return () => window.removeEventListener("resize", checkMobile);
+    }
+  }, []);
+
   // ─── Scroll tracking ───
   const { scrollYProgress } = useScroll({
     target: scrollContainerRef,
@@ -454,9 +465,9 @@ export default function JanmashtamiCanvas() {
   });
 
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: reducedMotion ? 300 : 70,
-    damping: reducedMotion ? 50 : 35,
-    restDelta: 0.0001,
+    stiffness: reducedMotion ? 300 : isMobileDevice ? 120 : 70,
+    damping: reducedMotion ? 50 : isMobileDevice ? 25 : 35,
+    restDelta: 0.0005,
   });
 
   useMotionValueEvent(smoothProgress, "change", (latest) => {
@@ -496,8 +507,9 @@ export default function JanmashtamiCanvas() {
     const images: (HTMLImageElement | null)[] = new Array(TOTAL_FRAMES).fill(null);
     imagesRef.current = images;
 
-    // Stage 1: Keyframes spaced every 6 frames (~50 keyframes total for ultra-fast startup)
-    const KEYFRAME_STEP = 6;
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+    // Stage 1: Keyframes spaced (every 8 frames on mobile, 6 on desktop for instant startup)
+    const KEYFRAME_STEP = isMobile ? 8 : 6;
     const keyframeIndices: number[] = [];
     for (let i = 0; i < TOTAL_FRAMES; i += KEYFRAME_STEP) {
       keyframeIndices.push(i);
@@ -529,7 +541,7 @@ export default function JanmashtamiCanvas() {
 
     // Stage 1: Load essential keyframes in parallel batches
     async function loadKeyframes() {
-      const BATCH_SIZE = 10;
+      const BATCH_SIZE = isMobile ? 6 : 10;
       for (let i = 0; i < keyframeIndices.length; i += BATCH_SIZE) {
         if (!mounted) return;
         const batch = keyframeIndices.slice(i, i + BATCH_SIZE);
@@ -554,12 +566,12 @@ export default function JanmashtamiCanvas() {
         }
       }
 
-      const BATCH_SIZE = 10;
+      const BATCH_SIZE = isMobile ? 5 : 10;
       for (let i = 0; i < remainingIndices.length; i += BATCH_SIZE) {
         if (!mounted) return;
         const batch = remainingIndices.slice(i, i + BATCH_SIZE);
         await Promise.all(batch.map((idx) => loadSingleFrame(idx)));
-        await new Promise((res) => setTimeout(res, 40));
+        await new Promise((res) => setTimeout(res, isMobile ? 80 : 40));
       }
     }
 
@@ -599,28 +611,41 @@ export default function JanmashtamiCanvas() {
       lastDrawnFrame.current = clampedIndex;
       lastDrawnImageRef.current = img;
 
-      const dpr = window.devicePixelRatio || 1;
       const displayW = window.innerWidth;
       const displayH = window.innerHeight;
+      const isMobile = displayW < 768;
+
+      // Cap DPR on mobile screens to prevent rendering 20M+ pixels per frame
+      const maxDpr = isMobile ? 1.0 : 1.5;
+      const dpr = Math.min(window.devicePixelRatio || 1, maxDpr);
+
+      const targetCanvasW = Math.floor(displayW * dpr);
+      const targetCanvasH = Math.floor(displayH * dpr);
 
       if (
-        canvas.width !== displayW * dpr ||
-        canvas.height !== displayH * dpr
+        canvas.width !== targetCanvasW ||
+        canvas.height !== targetCanvasH
       ) {
-        canvas.width = displayW * dpr;
-        canvas.height = displayH * dpr;
+        canvas.width = targetCanvasW;
+        canvas.height = targetCanvasH;
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       }
 
-      // High quality crisp image rendering
+      // Crisp image rendering with adaptive quality
       ctx.imageSmoothingEnabled = true;
-      ctx.imageSmoothingQuality = "high";
+      ctx.imageSmoothingQuality = isMobile ? "medium" : "high";
 
       // Clear
       ctx.clearRect(0, 0, displayW, displayH);
 
+      // Crop out watermark (excludes top/left 2% and right/bottom 11%)
+      const srcX = img.naturalWidth * 0.02;
+      const srcY = img.naturalHeight * 0.02;
+      const srcW = img.naturalWidth * 0.87;
+      const srcH = img.naturalHeight * 0.87;
+
       // "Cover" fit — fills entire viewport, crops overflow
-      const imgAspect = img.naturalWidth / img.naturalHeight;
+      const imgAspect = srcW / srcH;
       const canvasAspect = displayW / displayH;
 
       let drawW: number, drawH: number, drawX: number, drawY: number;
@@ -637,7 +662,7 @@ export default function JanmashtamiCanvas() {
         drawY = 0;
       }
 
-      ctx.drawImage(img, drawX, drawY, drawW, drawH);
+      ctx.drawImage(img, srcX, srcY, srcW, srcH, drawX, drawY, drawW, drawH);
     },
     [getClosestLoadedFrame]
   );
@@ -808,19 +833,19 @@ export default function JanmashtamiCanvas() {
             <EventsSection />
           </InteractiveBeat>
 
-          {/* Beat 2: Gratitude & Mentors (Active 0.44 -> 0.56, Video Holds at 50%) */}
+          {/* Beat 2: Aftermovies & About Janmashtami (Active 0.44 -> 0.56, Video Holds at 50%) — Where Gratitude was initially */}
           <InteractiveBeat scrollProgress={currentProgress} start={0.44} end={0.56} reducedMotion={reducedMotion}>
+            <AftermoviesSection />
+          </InteractiveBeat>
+
+          {/* Beat 3: Gratitude & Mentors (Active 0.68 -> 0.80, Video Holds at 75%) — Where Schedule was initially */}
+          <InteractiveBeat scrollProgress={currentProgress} start={0.68} end={0.80} reducedMotion={reducedMotion}>
             <GratitudeSection />
           </InteractiveBeat>
 
-          {/* Beat 3: Schedule Timeline (Active 0.68 -> 0.80, Video Holds at 75%) */}
-          <InteractiveBeat scrollProgress={currentProgress} start={0.68} end={0.80} reducedMotion={reducedMotion}>
-            <ScheduleTimeline />
-          </InteractiveBeat>
-
-          {/* Beat 4: Registration (Active 0.90 -> 1.00, Video Holds at 100%) */}
+          {/* Beat 4: Photo Collage (Active 0.90 -> 1.00, Video Holds at 100%) */}
           <InteractiveBeat scrollProgress={currentProgress} start={0.90} end={1.00} reducedMotion={reducedMotion}>
-            <RegistrationFooter />
+            <PhotoCollage />
           </InteractiveBeat>
         </>
       )}

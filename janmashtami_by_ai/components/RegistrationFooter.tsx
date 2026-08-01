@@ -8,7 +8,7 @@ export default function RegistrationFooter() {
   const [showVolunteerModal, setShowVolunteerModal] = useState(false);
 
   return (
-    <div className="w-full max-w-5xl rounded-3xl border border-[#d4a857]/40 bg-gradient-to-br from-[#0c051a]/35 via-black/25 to-[#140a26]/35 p-5 shadow-[0_0_50px_rgba(212,168,87,0.25),0_10px_40px_rgba(0,0,0,0.6)] backdrop-blur-xl md:p-8">
+    <div className="w-full max-w-5xl rounded-3xl border border-[#d4a857]/40 bg-transparent p-5 shadow-[0_0_50px_rgba(212,168,87,0.15)] backdrop-blur-xs md:p-8">
       {/* Title Header */}
       <div className="mb-6 text-center">
         <h2
@@ -25,7 +25,7 @@ export default function RegistrationFooter() {
       {/* Action Cards */}
       <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6">
         {/* T-Shirt Card */}
-        <div className="flex flex-col items-center justify-between rounded-2xl border border-[#d4a857]/35 bg-black/25 p-5 text-center shadow-lg backdrop-blur-lg transition-all duration-300 hover:border-[#ffe8ad] hover:bg-black/35 hover:shadow-[0_0_35px_rgba(212,168,87,0.3)]">
+        <div className="flex flex-col items-center justify-between rounded-2xl border border-[#d4a857]/35 bg-transparent p-5 text-center shadow-lg backdrop-blur-xs transition-all duration-300 hover:border-[#ffe8ad] hover:bg-black/20 hover:shadow-[0_0_35px_rgba(212,168,87,0.3)]">
           <div>
             <div className="relative mx-auto mb-3 h-28 w-28 overflow-hidden rounded-xl border border-[#d4a857]/50 shadow-md">
               <Image src="/Janmashtami/images/Tshirt.jpeg" alt="Janmashtami T-Shirt" fill className="object-cover" />
@@ -42,7 +42,7 @@ export default function RegistrationFooter() {
         </div>
 
         {/* Volunteer Card */}
-        <div className="flex flex-col items-center justify-between rounded-2xl border border-[#d4a857]/35 bg-black/25 p-5 text-center shadow-lg backdrop-blur-lg transition-all duration-300 hover:border-[#ffe8ad] hover:bg-black/35 hover:shadow-[0_0_35px_rgba(212,168,87,0.3)]">
+        <div className="flex flex-col items-center justify-between rounded-2xl border border-[#d4a857]/35 bg-transparent p-5 text-center shadow-lg backdrop-blur-xs transition-all duration-300 hover:border-[#ffe8ad] hover:bg-black/20 hover:shadow-[0_0_35px_rgba(212,168,87,0.3)]">
           <div>
             <div className="relative mx-auto mb-3 h-28 w-28 overflow-hidden rounded-xl border border-[#d4a857]/50 shadow-md">
               <Image src="/Janmashtami/images/Participants.jpeg" alt="Volunteer Call" fill className="object-cover" />
