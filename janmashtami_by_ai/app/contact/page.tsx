@@ -89,23 +89,28 @@ export default function ContactPage() {
               </a>
 
               {/* Phone Card */}
-              <a
-                href="tel:+916394185667"
-                className="group relative flex flex-col justify-between rounded-2xl border-2 border-[#d4a857]/40 bg-[#080412]/90 p-5 shadow-lg transition-all duration-300 hover:border-[#ffe8ad] hover:bg-[#0d061e] hover:shadow-[0_0_25px_rgba(212,168,87,0.3)]"
-              >
+              <div className="group relative flex flex-col justify-between rounded-2xl border-2 border-[#d4a857]/40 bg-[#080412]/90 p-5 shadow-lg transition-all duration-300 hover:border-[#ffe8ad] hover:bg-[#0d061e] hover:shadow-[0_0_25px_rgba(212,168,87,0.3)]">
                 <div>
                   <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl border border-[#d4a857]/50 bg-[#d4a857]/10 text-xl text-[#f0d68a]">
                     📞
                   </div>
-                  <h3 className="mb-1 text-base font-bold text-[#ffe8ad]">Call Us</h3>
-                  <p className="text-xs text-white/70">
-                    +91 63941-85667
-                  </p>
+                  <h3 className="mb-2 text-base font-bold text-[#ffe8ad]">Call Us</h3>
+                  <div className="space-y-2.5 text-xs text-white/90">
+                    <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-2">
+                      <span className="font-semibold text-[#ffe8ad]">Shashwath</span>
+                      <a href="tel:+918971460606" className="font-mono text-[#f0d68a] hover:underline font-bold">
+                        +91 89714-60606
+                      </a>
+                    </div>
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="font-semibold text-[#ffe8ad]">Aniket</span>
+                      <a href="tel:+916366803430" className="font-mono text-[#f0d68a] hover:underline font-bold">
+                        +91 63668-03430
+                      </a>
+                    </div>
+                  </div>
                 </div>
-                <span className="mt-4 text-xs font-bold text-[#f0d68a] group-hover:underline">
-                  Call Now →
-                </span>
-              </a>
+              </div>
             </div>
 
             {/* Address Card */}
@@ -130,28 +135,7 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* About Bhaktivedanta Club Card */}
-            <div className="rounded-2xl border-2 border-[#d4a857]/40 bg-gradient-to-br from-[#0c061a] to-[#06030c] p-6 shadow-lg">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="relative h-9 w-9 overflow-hidden rounded-full border border-[#d4a857]">
-                  <Image src="/Janmashtami/images/logo.png" alt="BVC Logo" fill className="object-contain p-0.5" />
-                </div>
-                <h3 className="text-base font-bold text-[#ffe8ad]">
-                  Bhaktivedanta Club (BVC) IIT Kanpur
-                </h3>
-              </div>
-              <p className="text-xs leading-relaxed text-white/80">
-                Promoting holistic living amongst the student community through cleanliness habits, nutritious diets, regular mantra meditation sessions, seminars on Bhagavad Gita, and selfless service.
-              </p>
-              <div className="mt-4 flex flex-wrap items-center gap-3">
-                <a
-                  href="../"
-                  className="rounded-full border border-[#d4a857]/50 bg-[#d4a857]/20 px-4 py-1.5 text-xs font-bold text-[#f0d68a] hover:bg-[#d4a857]/40 transition-colors"
-                >
-                  ← Back to Main BVC Website
-                </a>
-              </div>
-            </div>
+
           </div>
 
           {/* RIGHT COLUMN: Google Maps & Navigation */}

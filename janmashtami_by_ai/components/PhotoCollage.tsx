@@ -30,6 +30,7 @@ const COLLAGE_IMAGES = [
     title: "Cultural Dance Performance",
     src: "/Janmashtami/images/collage/IMG_9853.webp",
     fallbackSrc: "/images/collage/IMG_9853.webp",
+    objectPosition: "object-top",
   },
   {
     id: "bottom-middle",
@@ -42,6 +43,7 @@ const COLLAGE_IMAGES = [
     title: "Mridanga Sankirtan Player",
     src: "/Janmashtami/images/collage/IMG_9906.webp",
     fallbackSrc: "/images/collage/IMG_9906.webp",
+    objectPosition: "object-top",
   },
 ];
 
@@ -105,7 +107,9 @@ export default function PhotoCollage() {
                     (e.target as HTMLImageElement).src = img.fallbackSrc;
                   }}
                   alt=""
-                  className="block h-full w-full object-cover object-center rounded-[13px] transition-transform duration-300 group-hover:scale-105"
+                  className={`block h-full w-full object-cover rounded-[13px] transition-transform duration-300 group-hover:scale-105 ${
+                    img.objectPosition || "object-center"
+                  }`}
                 />
               </div>
             );
@@ -135,7 +139,9 @@ export default function PhotoCollage() {
                     (e.target as HTMLImageElement).src = img.fallbackSrc;
                   }}
                   alt=""
-                  className="block h-full w-full object-cover object-center rounded-[13px] transition-transform duration-300 group-hover:scale-105"
+                  className={`block h-full w-full object-cover rounded-[13px] transition-transform duration-300 group-hover:scale-105 ${
+                    img.objectPosition || "object-center"
+                  }`}
                 />
               </div>
             );

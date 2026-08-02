@@ -9,6 +9,7 @@ interface GalleryPhoto {
   id: string;
   src: string;
   category: "altar" | "kirtan" | "cultural" | "festivities";
+  objectPosition?: string;
 }
 
 const GALLERY_PHOTOS: GalleryPhoto[] = [
@@ -26,7 +27,7 @@ const GALLERY_PHOTOS: GalleryPhoto[] = [
 
   // ── Kirtan & Bhajan ──
   { id: "p11", src: "/Janmashtami/images/gallery/IMG20220819194931_01.webp", category: "kirtan" },
-  { id: "p12", src: "/Janmashtami/images/gallery/IMG_9906.webp", category: "kirtan" },
+  { id: "p12", src: "/Janmashtami/images/gallery/IMG_9906.webp", category: "kirtan", objectPosition: "object-top" },
   { id: "p13", src: "/Janmashtami/images/gallery/IMG_9925.webp", category: "kirtan" },
   { id: "p14", src: "/Janmashtami/images/gallery/DSCN6763.webp", category: "kirtan" },
   { id: "p15", src: "/Janmashtami/images/gallery/DSCN6785.webp", category: "kirtan" },
@@ -37,15 +38,15 @@ const GALLERY_PHOTOS: GalleryPhoto[] = [
   { id: "p20", src: "/Janmashtami/images/gallery/DSC_0123.webp", category: "kirtan" },
 
   // ── Cultural Performances ──
-  { id: "p21", src: "/Janmashtami/images/gallery/IMG_9853.webp", category: "cultural" },
-  { id: "p22", src: "/Janmashtami/images/gallery/IMG_9876.webp", category: "cultural" },
-  { id: "p23", src: "/Janmashtami/images/gallery/IMG_9887.webp", category: "cultural" },
-  { id: "p24", src: "/Janmashtami/images/gallery/IMG_9899.webp", category: "cultural" },
+  { id: "p21", src: "/Janmashtami/images/gallery/IMG_9853.webp", category: "cultural", objectPosition: "object-top" },
+  { id: "p22", src: "/Janmashtami/images/gallery/IMG_9876.webp", category: "cultural", objectPosition: "object-top" },
+  { id: "p23", src: "/Janmashtami/images/gallery/IMG_9887.webp", category: "cultural", objectPosition: "object-top" },
+  { id: "p24", src: "/Janmashtami/images/gallery/IMG_9899.webp", category: "cultural", objectPosition: "object-top" },
   { id: "p25", src: "/Janmashtami/images/gallery/DSC_0126.webp", category: "cultural" },
   { id: "p26", src: "/Janmashtami/images/gallery/DSC_0182.webp", category: "cultural" },
   { id: "p27", src: "/Janmashtami/images/gallery/DSC_0217.webp", category: "cultural" },
-  { id: "p28", src: "/Janmashtami/images/gallery/DSC_0221.webp", category: "cultural" },
-  { id: "p29", src: "/Janmashtami/images/gallery/DSC_0252.webp", category: "cultural" },
+  { id: "p28", src: "/Janmashtami/images/gallery/DSC_0221.webp", category: "cultural", objectPosition: "object-top" },
+  { id: "p29", src: "/Janmashtami/images/gallery/DSC_0252.webp", category: "cultural", objectPosition: "object-top" },
   { id: "p30", src: "/Janmashtami/images/gallery/DSC_0273.webp", category: "cultural" },
 
   // ── Festivities & Exhibits ──
@@ -163,7 +164,9 @@ export default function ViewMoreGalleryPage() {
                 alt=""
                 loading="lazy"
                 decoding="async"
-                className="block h-full w-full object-cover object-center rounded-[13px] transition-transform duration-300 group-hover:scale-105"
+                className={`block h-full w-full object-cover rounded-[13px] transition-transform duration-300 group-hover:scale-105 ${
+                  photo.objectPosition || "object-center"
+                }`}
               />
             </div>
           ))}

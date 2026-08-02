@@ -38,12 +38,21 @@ export default function SiteFooter() {
                   bhaktivedanta.club.iitk12@gmail.com
                 </a>
               </p>
-              <p className="flex items-center gap-2">
-                <span>📞</span>
-                <a href="tel:+916394185667" className="hover:text-[#f0d68a] transition-colors">
-                  +91 63941-85667
-                </a>
-              </p>
+              <div className="flex flex-col gap-1 text-xs text-white/80">
+                <div className="flex items-center gap-2">
+                  <span>📞</span>
+                  <span className="text-[#ffe8ad] font-semibold">Shashwath:</span>
+                  <a href="tel:+918971460606" className="hover:text-[#f0d68a] font-mono font-bold transition-colors">
+                    +91 89714-60606
+                  </a>
+                </div>
+                <div className="flex items-center gap-2 pl-6">
+                  <span className="text-[#ffe8ad] font-semibold">Aniket:</span>
+                  <a href="tel:+916366803430" className="hover:text-[#f0d68a] font-mono font-bold transition-colors">
+                    +91 63668-03430
+                  </a>
+                </div>
+              </div>
               <p className="flex items-start gap-2">
                 <span>📍</span>
                 <span>House no. 664, Lane 36, Kalyanpur, Kanpur, Uttar Pradesh 208016</span>

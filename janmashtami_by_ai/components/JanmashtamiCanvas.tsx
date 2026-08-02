@@ -21,11 +21,13 @@ import AftermoviesSection from "@/components/AftermoviesSection";
 import GratitudeSection from "@/components/GratitudeSection";
 import HighlightsGallery from "@/components/HighlightsGallery";
 import PhotoCollage from "@/components/PhotoCollage";
+import RegistrationFooter from "@/components/RegistrationFooter";
 import Navbar from "@/components/Navbar";
 import ScrollProgressBar from "@/components/ScrollProgressBar";
 import AmbientParticles from "@/components/AmbientParticles";
 import TransitionVignette from "@/components/TransitionVignette";
 import CountdownTimer from "@/components/CountdownTimer";
+import VolunteerModal from "@/components/VolunteerModal";
 
 // ─── Constants ───
 const TOTAL_FRAMES = 299;
@@ -392,36 +394,43 @@ function smoothstep(t: number): number {
 function getFrameIndexFromScroll(progress: number): number {
   let videoProgress = 0;
 
-  if (progress <= 0.08) {
-    // Intro Logo (0.00 -> 0.08): Hold on Frame 0
+  if (progress <= 0.06) {
+    // Intro Logo (0.00 -> 0.06): Hold on Frame 0
     videoProgress = 0;
-  } else if (progress <= 0.20) {
-    // Video Motion 1 (0.08 -> 0.20): Advance video 0% -> 25%
-    const t = (progress - 0.08) / (0.20 - 0.08);
+  } else if (progress <= 0.18) {
+    // Video Motion 1 (0.06 -> 0.18): Advance video 0% -> 25%
+    const t = (progress - 0.06) / (0.18 - 0.06);
     videoProgress = 0.25 * smoothstep(t);
-  } else if (progress <= 0.32) {
-    // Events Section (0.20 -> 0.32): Hold video at 25%
+  } else if (progress <= 0.30) {
+    // Events Section (0.18 -> 0.30): HOLD video at 25% while cards are displayed
     videoProgress = 0.25;
-  } else if (progress <= 0.44) {
-    // Video Motion 2 (0.32 -> 0.44): Advance video 25% -> 50%
-    const t = (progress - 0.32) / (0.44 - 0.32);
+  } else if (progress <= 0.36) {
+    // Video Motion 2 (0.30 -> 0.36): Advance video 25% -> 50%
+    const t = (progress - 0.30) / (0.36 - 0.30);
     videoProgress = 0.25 + 0.25 * smoothstep(t);
-  } else if (progress <= 0.56) {
-    // Aftermovies & About Janmashtami (0.44 -> 0.56): Hold video at 50%
+  } else if (progress <= 0.48) {
+    // Aftermovies Section (0.36 -> 0.48): HOLD video at 50% while cards are displayed
     videoProgress = 0.50;
-  } else if (progress <= 0.68) {
-    // Video Motion 3 (0.56 -> 0.68): Advance video 50% -> 75%
-    const t = (progress - 0.56) / (0.68 - 0.56);
+  } else if (progress <= 0.54) {
+    // Video Motion 3 (0.48 -> 0.54): Advance video 50% -> 75%
+    const t = (progress - 0.48) / (0.54 - 0.48);
     videoProgress = 0.50 + 0.25 * smoothstep(t);
-  } else if (progress <= 0.80) {
-    // Gratitude & Mentors (0.68 -> 0.80): Hold video at 75%
+  } else if (progress <= 0.66) {
+    // Gratitude Section (0.54 -> 0.66): HOLD video at 75% while cards are displayed
     videoProgress = 0.75;
-  } else if (progress <= 0.90) {
-    // Video Motion 4 (0.80 -> 0.90): Advance video 75% -> 100%
-    const t = (progress - 0.80) / (0.90 - 0.80);
-    videoProgress = 0.75 + 0.25 * smoothstep(t);
+  } else if (progress <= 0.72) {
+    // Video Motion 4 (0.66 -> 0.72): Advance video 75% -> 90%
+    const t = (progress - 0.66) / (0.72 - 0.66);
+    videoProgress = 0.75 + 0.15 * smoothstep(t);
+  } else if (progress <= 0.84) {
+    // Photo Collage (0.72 -> 0.84): HOLD video at 90% while cards are displayed
+    videoProgress = 0.90;
+  } else if (progress <= 0.88) {
+    // Video Motion 5 (0.84 -> 0.88): Advance video 90% -> 100%
+    const t = (progress - 0.84) / (0.88 - 0.84);
+    videoProgress = 0.90 + 0.10 * smoothstep(t);
   } else {
-    // Registration Finale (0.90 -> 1.00): Hold video at 100%
+    // Registration Finale (0.88 -> 1.00): HOLD video at 100% while cards persist
     videoProgress = 1.0;
   }
 
@@ -828,30 +837,38 @@ export default function JanmashtamiCanvas() {
       {/* ═══ INTERACTIVE SCROLL BEATS — timed with scrollable wallpaper video ═══ */}
       {isLoaded && (
         <>
-          {/* Beat 1: Events Section (Active 0.20 -> 0.32, Video Holds at 25%) */}
-          <InteractiveBeat scrollProgress={currentProgress} start={0.20} end={0.32} reducedMotion={reducedMotion}>
+          {/* Beat 1: Events Section (Active 0.18 -> 0.30, Video Holds at 25%) */}
+          <InteractiveBeat scrollProgress={currentProgress} start={0.18} end={0.30} reducedMotion={reducedMotion}>
             <EventsSection />
           </InteractiveBeat>
 
-          {/* Beat 2: Aftermovies & About Janmashtami (Active 0.44 -> 0.56, Video Holds at 50%) — Where Gratitude was initially */}
-          <InteractiveBeat scrollProgress={currentProgress} start={0.44} end={0.56} reducedMotion={reducedMotion}>
+          {/* Beat 2: Aftermovies & About Janmashtami (Active 0.36 -> 0.48, Video Holds at 50%) */}
+          <InteractiveBeat scrollProgress={currentProgress} start={0.36} end={0.48} reducedMotion={reducedMotion}>
             <AftermoviesSection />
           </InteractiveBeat>
 
-          {/* Beat 3: Gratitude & Mentors (Active 0.68 -> 0.80, Video Holds at 75%) — Where Schedule was initially */}
-          <InteractiveBeat scrollProgress={currentProgress} start={0.68} end={0.80} reducedMotion={reducedMotion}>
+          {/* Beat 3: Gratitude & Mentors (Active 0.54 -> 0.66, Video Holds at 75%) */}
+          <InteractiveBeat scrollProgress={currentProgress} start={0.54} end={0.66} reducedMotion={reducedMotion}>
             <GratitudeSection />
           </InteractiveBeat>
 
-          {/* Beat 4: Photo Collage (Active 0.90 -> 1.00, Video Holds at 100%) */}
-          <InteractiveBeat scrollProgress={currentProgress} start={0.90} end={1.00} reducedMotion={reducedMotion}>
+          {/* Beat 4: Photo Collage (Active 0.72 -> 0.84, Video Holds at 90%) */}
+          <InteractiveBeat scrollProgress={currentProgress} start={0.72} end={0.84} reducedMotion={reducedMotion}>
             <PhotoCollage />
+          </InteractiveBeat>
+
+          {/* Beat 5: Persistent Registration & Volunteer Hub (Active 0.88 -> 1.00, Persists at bottom) */}
+          <InteractiveBeat scrollProgress={currentProgress} start={0.88} end={1.00} reducedMotion={reducedMotion} persistAtEnd={true}>
+            <RegistrationFooter />
           </InteractiveBeat>
         </>
       )}
 
       {/* Scroll Indicator */}
       {isLoaded && <ScrollIndicator opacity={scrollIndicatorOpacity} />}
+
+      {/* Call for Volunteers & Participation Popup Modal */}
+      {isLoaded && <VolunteerModal />}
     </>
   );
 }

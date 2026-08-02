@@ -10,6 +10,7 @@ interface InteractiveBeatProps {
   className?: string;
   isHero?: boolean;
   reducedMotion?: boolean;
+  persistAtEnd?: boolean;
 }
 
 export default function InteractiveBeat({
@@ -20,10 +21,11 @@ export default function InteractiveBeat({
   className = "",
   isHero = false,
   reducedMotion = false,
+  persistAtEnd = false,
 }: InteractiveBeatProps) {
   const safeProgress = Number.isNaN(scrollProgress) || typeof scrollProgress !== "number" ? 0 : scrollProgress;
   const range = end - start;
-  const fadeInEnd = start + range * 0.25;
+  const fadeInEnd = start + (persistAtEnd ? 0.04 : range * 0.25);
   const fadeOutStart = end - range * 0.3;
 
   let opacity = 0;
@@ -34,6 +36,19 @@ export default function InteractiveBeat({
     opacity = 0;
     yOffset = 40;
     scale = 0.96;
+  } else if (persistAtEnd) {
+    // Persistent beat: Fade in and STAY 100% visible at the end of the scroll experience
+    if (safeProgress < fadeInEnd) {
+      const t = (safeProgress - start) / (fadeInEnd - start);
+      const safeT = Number.isNaN(t) ? 0 : Math.min(Math.max(t, 0), 1);
+      opacity = safeT;
+      yOffset = 30 * (1 - opacity);
+      scale = 0.96 + 0.04 * opacity;
+    } else {
+      opacity = 1;
+      yOffset = 0;
+      scale = 1;
+    }
   } else if (safeProgress < fadeInEnd) {
     // Phase 1: Fade in while moving up into view (40px -> 0px)
     const t = (safeProgress - start) / (fadeInEnd - start);
