@@ -29,6 +29,14 @@ export const metadata: Metadata = {
     "Kirtan",
     "Spiritual",
   ],
+  icons: {
+    icon: [
+      { url: "/Janmashtami/favicon.png", type: "image/png" },
+      { url: "/Janmashtami/images/bvc-logo.png", type: "image/png" },
+    ],
+    shortcut: "/Janmashtami/favicon.png",
+    apple: "/Janmashtami/images/bvc-logo.png",
+  },
   openGraph: {
     title: "Janmashtami — Experience the Divine at IIT Kanpur",
     description:

@@ -19,9 +19,9 @@ const AFTERMOVIES: VideoItem[] = [
 ];
 
 const STATS = [
-  { label: "Footfall", value: 1000, suffix: "+", icon: "👥" },
+  { label: "Footfall", value: 7000, suffix: "+", icon: "👥" },
   { label: "Alumni Network", value: 100, suffix: "+", icon: "🎓" },
-  { label: "Participants", value: 150, suffix: "+", icon: "🚩" },
+  { label: "Participants", value: 200, suffix: "+", icon: "🚩" },
   { label: "Annual Flagship Events", value: 15, suffix: "+", icon: "🏆" },
 ];
 
@@ -67,24 +67,24 @@ function StatCard({ label, value, suffix, icon }: { label: string; value: number
   const [progressPct, setProgressPct] = useState(0);
 
   return (
-    <div className="group relative flex flex-col items-center justify-between overflow-hidden rounded-2xl border border-[#d4a857]/35 bg-transparent p-3.5 text-center shadow-[0_0_20px_rgba(0,0,0,0.3)] transition-all duration-300 hover:-translate-y-1 hover:scale-[1.03] hover:border-[#ffe8ad] hover:shadow-[0_0_30px_rgba(240,214,138,0.35)]">
+    <div className="group relative flex flex-col items-center justify-between overflow-hidden rounded-2xl border border-[#d4a857]/50 bg-[#080410]/85 p-4 text-center shadow-xl backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:scale-[1.03] hover:border-[#ffe8ad] hover:bg-[#0c0618]/95 hover:shadow-[0_0_35px_rgba(240,214,138,0.4)]">
       {/* Icon Badge */}
-      <div className="mb-1 text-base md:text-lg opacity-90 transition-transform duration-300 group-hover:scale-125">
+      <div className="mb-1 text-base md:text-xl transition-transform duration-300 group-hover:scale-125">
         {icon}
       </div>
 
       {/* Animated Counter */}
-      <div className="text-xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#ffe8ad] via-[#f0d68a] to-[#d4a857] drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)] md:text-3xl">
+      <div className="text-xl font-black tracking-tight text-[#ffe8ad] drop-shadow-[0_2px_8px_rgba(0,0,0,1)] md:text-3xl">
         <LoopingCounter target={value} suffix={suffix} onProgress={setProgressPct} />
       </div>
 
       {/* Label */}
-      <div className="mt-1 text-[11px] font-semibold tracking-wide text-white/90 drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)] md:text-xs">
+      <div className="mt-1 text-xs font-black tracking-wide text-white drop-shadow-[0_2px_6px_rgba(0,0,0,1)] md:text-sm">
         {label}
       </div>
 
       {/* Animated Progress Bar Indicator at bottom of card */}
-      <div className="absolute bottom-0 left-0 h-[2px] w-full bg-white/10">
+      <div className="absolute bottom-0 left-0 h-[3px] w-full bg-white/20">
         <div
           className="h-full bg-gradient-to-r from-[#d4a857] via-[#f0d68a] to-[#ffe8ad] transition-all duration-150"
           style={{ width: `${progressPct * 100}%` }}
@@ -99,24 +99,24 @@ export default function AftermoviesSection() {
   const activeVideo = AFTERMOVIES.find((v) => v.year === selectedYear) || AFTERMOVIES[0];
 
   return (
-    <div className="w-full max-w-5xl rounded-3xl border border-[#d4a857]/40 bg-transparent p-5 shadow-[0_0_50px_rgba(212,168,87,0.15)] backdrop-blur-xs md:p-8">
+    <div className="w-full max-w-5xl rounded-3xl border border-[#d4a857]/50 bg-[#06030c]/85 p-6 shadow-[0_0_60px_rgba(0,0,0,0.95)] backdrop-blur-md md:p-9">
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
         {/* Left Column: Aftermovies */}
         <div className="flex flex-col justify-between lg:col-span-6">
           <div>
-            <div className="mb-3 flex items-center justify-between">
+            <div className="mb-4 flex items-center justify-between">
               <h2
-                className="text-xl font-bold tracking-wider uppercase text-transparent bg-clip-text bg-gradient-to-r from-[#ffe8ad] via-[#f0d68a] to-[#d4a857] drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] md:text-2xl"
+                className="text-xl font-black tracking-wider uppercase text-transparent bg-clip-text bg-gradient-to-r from-[#ffffff] via-[#ffe8ad] to-[#d4a857] drop-shadow-[0_4px_12px_rgba(0,0,0,1)] md:text-3xl"
                 style={{ fontFamily: "var(--font-heading)" }}
               >
                 AFTERMOVIES
               </h2>
 
               {/* Pulsing Live Badge */}
-              <div className="inline-flex items-center gap-1.5 rounded-full border border-[#d4a857]/40 bg-[#d4a857]/10 px-2.5 py-0.5 text-[10px] font-mono font-bold uppercase text-[#f0d68a]">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#f0d68a] opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[#d4a857]"></span>
+              <div className="inline-flex items-center gap-1.5 rounded-full border border-[#d4a857]/60 bg-[#d4a857]/20 px-3 py-1 text-xs font-mono font-black uppercase text-[#ffe8ad] shadow-md backdrop-blur-sm">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#ffe8ad] opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#d4a857]"></span>
                 </span>
                 <span>{selectedYear} Highlights</span>
               </div>
@@ -132,13 +132,13 @@ export default function AftermoviesSection() {
                     <button
                       key={v.year}
                       onClick={() => setSelectedYear(v.year)}
-                      className={`flex-1 flex items-center justify-center gap-1 rounded-full py-2.5 px-2 text-xs sm:text-sm font-extrabold tracking-wider transition-all duration-300 hover:scale-105 active:scale-95 shadow-md ${
+                      className={`flex-1 flex items-center justify-center gap-1 rounded-full py-2.5 px-2 text-xs sm:text-sm font-black tracking-wider transition-all duration-300 hover:scale-105 active:scale-95 shadow-md ${
                         isActive
-                          ? "border-2 border-[#ffe8ad] bg-gradient-to-r from-[#d4a857]/80 via-[#f0d68a]/60 to-[#d4a857]/80 text-white shadow-[0_0_22px_rgba(240,214,138,0.75)] scale-105 font-black"
-                          : "border-2 border-[#d4a857]/35 bg-[#0a0514]/40 text-white/90 backdrop-blur-xs hover:border-[#ffe8ad] hover:bg-[#d4a857]/20 hover:text-white"
+                          ? "border-2 border-[#ffe8ad] bg-gradient-to-r from-[#d4a857] via-[#f0d68a] to-[#d4a857] text-[#050208] shadow-[0_0_25px_rgba(240,214,138,0.9)] scale-105"
+                          : "border-2 border-[#d4a857]/50 bg-[#080412]/90 text-white hover:border-[#ffe8ad] hover:bg-[#d4a857]/40 shadow-[0_4px_12px_rgba(0,0,0,0.8)]"
                       }`}
                     >
-                      {isActive && <span className="text-[10px] text-[#ffe8ad]">▶</span>}
+                      {isActive && <span className="text-[10px] text-[#050208]">▶</span>}
                       <span>{v.year}</span>
                     </button>
                   );
@@ -153,13 +153,13 @@ export default function AftermoviesSection() {
                     <button
                       key={v.year}
                       onClick={() => setSelectedYear(v.year)}
-                      className={`flex-1 flex items-center justify-center gap-1 rounded-full py-2.5 px-4 text-xs sm:text-sm font-extrabold tracking-wider transition-all duration-300 hover:scale-105 active:scale-95 shadow-md ${
+                      className={`flex-1 flex items-center justify-center gap-1 rounded-full py-2.5 px-4 text-xs sm:text-sm font-black tracking-wider transition-all duration-300 hover:scale-105 active:scale-95 shadow-md ${
                         isActive
-                          ? "border-2 border-[#ffe8ad] bg-gradient-to-r from-[#d4a857]/80 via-[#f0d68a]/60 to-[#d4a857]/80 text-white shadow-[0_0_22px_rgba(240,214,138,0.75)] scale-105 font-black"
-                          : "border-2 border-[#d4a857]/35 bg-[#0a0514]/40 text-white/90 backdrop-blur-xs hover:border-[#ffe8ad] hover:bg-[#d4a857]/20 hover:text-white"
+                          ? "border-2 border-[#ffe8ad] bg-gradient-to-r from-[#d4a857] via-[#f0d68a] to-[#d4a857] text-[#050208] shadow-[0_0_25px_rgba(240,214,138,0.9)] scale-105"
+                          : "border-2 border-[#d4a857]/50 bg-[#080412]/90 text-white hover:border-[#ffe8ad] hover:bg-[#d4a857]/40 shadow-[0_4px_12px_rgba(0,0,0,0.8)]"
                       }`}
                     >
-                      {isActive && <span className="text-[10px] text-[#ffe8ad]">▶</span>}
+                      {isActive && <span className="text-[10px] text-[#050208]">▶</span>}
                       <span>{v.year}</span>
                     </button>
                   );
@@ -169,8 +169,8 @@ export default function AftermoviesSection() {
           </div>
 
           {/* YouTube Video Player Container */}
-          <div className="flex flex-col">
-            <div className="group relative aspect-video w-full overflow-hidden rounded-2xl border border-[#d4a857]/40 shadow-[0_0_25px_rgba(0,0,0,0.5)] transition-all duration-300 hover:border-[#ffe8ad] hover:shadow-[0_0_35px_rgba(212,168,87,0.3)]">
+          <div className="flex flex-col items-center">
+            <div className="group relative aspect-video w-full overflow-hidden rounded-2xl border-2 border-[#d4a857]/60 bg-black/80 shadow-[0_0_30px_rgba(0,0,0,0.9)] transition-all duration-300 hover:border-[#ffe8ad] hover:shadow-[0_0_40px_rgba(212,168,87,0.5)]">
               <iframe
                 src={`https://www.youtube.com/embed/${activeVideo.youtubeId}`}
                 title={`Janmashtami ${activeVideo.year} Aftermovie`}
@@ -185,11 +185,11 @@ export default function AftermoviesSection() {
               href={activeVideo.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-2.5 inline-flex items-center justify-center gap-1.5 text-xs font-bold text-[#f0d68a] hover:text-[#ffe8ad] hover:underline transition-colors drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]"
+              className="mt-3.5 inline-flex items-center gap-2 rounded-full border border-[#d4a857]/60 bg-[#d4a857]/20 px-4 py-1.5 text-xs font-black uppercase tracking-wider text-[#ffe8ad] shadow-md transition-all duration-300 hover:bg-[#d4a857] hover:text-[#050208] hover:scale-105"
             >
               <span>Watch {activeVideo.year} Aftermovie on YouTube</span>
               <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
-                <path d="M4 12L12 4M12 4H6M12 4V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                <path d="M4 12L12 4M12 4H6M12 4V10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
               </svg>
             </a>
           </div>
@@ -199,19 +199,19 @@ export default function AftermoviesSection() {
         <div className="flex flex-col justify-between lg:col-span-6">
           <div>
             <h2
-              className="mb-3 text-center text-xl font-bold tracking-wider uppercase text-transparent bg-clip-text bg-gradient-to-r from-[#ffe8ad] via-[#f0d68a] to-[#d4a857] drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] lg:text-left md:text-2xl"
+              className="mb-4 text-center text-xl font-black tracking-wider uppercase text-transparent bg-clip-text bg-gradient-to-r from-[#ffffff] via-[#ffe8ad] to-[#d4a857] drop-shadow-[0_4px_12px_rgba(0,0,0,1)] lg:text-left md:text-3xl"
               style={{ fontFamily: "var(--font-heading)" }}
             >
               ABOUT JANMASTHAMI
             </h2>
 
             {/* Quote Card */}
-            <div className="rounded-2xl border-l-4 border-l-[#d4a857] border border-[#d4a857]/30 bg-[#d4a857]/5 p-4 md:p-5 backdrop-blur-xs shadow-[0_0_20px_rgba(0,0,0,0.3)]">
-              <h3 className="mb-2 text-base font-bold text-[#ffe8ad] drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)] md:text-lg">
+            <div className="rounded-2xl border-l-4 border-l-[#d4a857] border border-[#d4a857]/50 bg-[#0a0514]/90 p-5 shadow-[0_0_30px_rgba(0,0,0,0.9)] backdrop-blur-md md:p-6">
+              <h3 className="mb-2 text-base font-black text-[#ffe8ad] drop-shadow-[0_2px_8px_rgba(0,0,0,1)] md:text-lg">
                 Why do We Celebrate Janmashtami?
               </h3>
 
-              <p className="text-xs font-normal leading-relaxed text-white/95 drop-shadow-[0_1px_4px_rgba(0,0,0,0.95)] md:text-sm">
+              <p className="text-xs font-bold leading-relaxed text-white drop-shadow-[0_2px_6px_rgba(0,0,0,1)] md:text-sm">
                 Janmashtami is a grand celebration to commemorate the appearance of Lord
                 Krishna, who is believed to be the Supreme Lord or the Lord of the Lords. It is
                 the celebration of joy, love, and divinity. The story of Krishna’s appearance
@@ -222,7 +222,7 @@ export default function AftermoviesSection() {
           </div>
 
           {/* Looping Numbers Grid */}
-          <div className="mt-5 grid grid-cols-2 gap-3 sm:gap-4">
+          <div className="mt-6 grid grid-cols-2 gap-3.5 sm:gap-4">
             {STATS.map((stat, idx) => (
               <StatCard
                 key={idx}

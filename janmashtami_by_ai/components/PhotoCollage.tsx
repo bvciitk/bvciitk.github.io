@@ -135,6 +135,17 @@ export default function PhotoCollage() {
         </div>
       </div>
 
+      {/* ════ VIEW MORE BUTTON BELOW COLLAGE ════ */}
+      <div className="mt-8 flex justify-center">
+        <a
+          href="/Janmashtami/view-more/"
+          className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-full border-2 border-[#ffe8ad] bg-gradient-to-r from-[#a855f7] via-[#c084fc] to-[#a855f7] px-8 py-3.5 text-sm font-extrabold tracking-wider uppercase text-white shadow-[0_0_30px_rgba(168,85,247,0.7)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_45px_rgba(192,132,252,0.95)] hover:border-white active:scale-95"
+        >
+          <span>View More Photos ✦</span>
+          <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+        </a>
+      </div>
+
       {/* ════ FULLSCREEN LIGHTBOX MODAL — PURPLE BORDER WRAPS IMAGE BOUNDS EXACTLY ════ */}
       {selectedIndex !== null && (
         <div

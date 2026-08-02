@@ -8,18 +8,15 @@ export default function ContactPage() {
   return (
     <main className="min-h-screen bg-[#050208] text-white selection:bg-[#d4a857]/30">
       {/* ═══ TOP NAVBAR ═══ */}
-      <nav className="sticky top-0 z-50 border-b border-[#d4a857]/30 bg-[#080410]/95 backdrop-blur-md">
+      <nav className="sticky top-0 z-50 bg-transparent transition-all duration-300">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-8">
           {/* Brand Logo & Name */}
           <Link href="/" className="flex items-center gap-3 transition-transform hover:scale-105">
-            <div className="relative h-10 w-10 overflow-hidden rounded-full border-2 border-[#d4a857] bg-[#0a0514] shadow-[0_0_15px_rgba(212,168,87,0.6)]">
-              <Image src="/Janmashtami/images/logo.png" alt="BVC IITK Logo" fill className="object-contain p-0.5" />
+            <div className="relative h-14 w-20 sm:h-16 sm:w-24 transition-all duration-300 hover:scale-105 filter drop-shadow-[0_0_16px_rgba(255,232,173,0.75)]">
+              <Image src="/Janmashtami/images/logo.png" alt="Janmashtami '26 IITK Logo" fill className="object-contain" priority />
             </div>
-            <div>
-              <span className="block text-base font-extrabold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-[#ffffff] via-[#ffe8ad] to-[#d4a857]">
-                Janmashtami
-              </span>
-              <span className="block text-[11px] font-bold tracking-widest uppercase text-white">
+            <div className="hidden sm:block">
+              <span className="block text-xs font-black tracking-widest uppercase text-transparent bg-clip-text bg-gradient-to-r from-[#ffffff] via-[#ffe8ad] to-[#d4a857]">
                 BVC IIT Kanpur
               </span>
             </div>
