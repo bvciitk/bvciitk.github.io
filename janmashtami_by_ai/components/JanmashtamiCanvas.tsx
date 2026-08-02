@@ -21,7 +21,6 @@ import AftermoviesSection from "@/components/AftermoviesSection";
 import GratitudeSection from "@/components/GratitudeSection";
 import HighlightsGallery from "@/components/HighlightsGallery";
 import PhotoCollage from "@/components/PhotoCollage";
-import SiteFooter from "@/components/SiteFooter";
 import Navbar from "@/components/Navbar";
 import ScrollProgressBar from "@/components/ScrollProgressBar";
 import AmbientParticles from "@/components/AmbientParticles";
@@ -825,13 +824,6 @@ export default function JanmashtamiCanvas() {
         style={{ height: "833vh" }}
       >
       </div>
-
-      {/* ═══ STATIC FOOTER AT BOTTOMMOST PART OF WEBSITE ═══ */}
-      {isLoaded && (
-        <div className="relative z-30 w-full bg-black/30 border-t border-[#d4a857]/30 backdrop-blur-md">
-          <SiteFooter />
-        </div>
-      )}
 
       {/* ═══ INTERACTIVE SCROLL BEATS — timed with scrollable wallpaper video ═══ */}
       {isLoaded && (

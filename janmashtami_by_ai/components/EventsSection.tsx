@@ -9,32 +9,32 @@ export default function EventsSection() {
   const activeEvent = EVENTS_DATA.find((e) => e.id === activeTab) || EVENTS_DATA[0];
 
   return (
-    <div className="w-full max-w-5xl rounded-3xl border border-[#d4a857]/40 bg-transparent p-4 shadow-[0_0_50px_rgba(212,168,87,0.15)] backdrop-blur-xs md:p-8">
+    <div className="w-full max-w-5xl rounded-3xl border-2 border-[#d4a857]/60 bg-[#06030c]/85 p-5 shadow-[0_0_60px_rgba(0,0,0,0.9)] backdrop-blur-md md:p-8">
       {/* Title Header */}
-      <div className="mb-4 text-center sm:mb-6">
+      <div className="mb-5 text-center sm:mb-6">
         <h2
-          className="text-xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#ffe8ad] via-[#f0d68a] to-[#d4a857] drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)] sm:text-3xl md:text-4xl"
+          className="text-2xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#ffffff] via-[#f0d68a] to-[#d4a857] drop-shadow-[0_4px_12px_rgba(0,0,0,1)] sm:text-3xl md:text-4xl"
           style={{ fontFamily: "var(--font-heading)" }}
         >
           Grand Events & Festivities
         </h2>
-        <p className="mt-1 text-xs text-white/80 drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)] md:text-base">
+        <p className="mt-1.5 text-xs font-bold text-white drop-shadow-[0_2px_8px_rgba(0,0,0,1)] md:text-base">
           Exciting Games, events, and performances by all age groups
         </p>
       </div>
 
       {/* Tabs — Horizontally Scrollable on Mobile, Wrapped on Desktop */}
-      <div className="mb-4 flex items-center justify-start gap-2 overflow-x-auto p-1.5 scrollbar-none sm:justify-center sm:flex-wrap sm:gap-3.5 max-w-full">
+      <div className="mb-6 flex items-center justify-start gap-2.5 overflow-x-auto p-1.5 scrollbar-none sm:justify-center sm:flex-wrap sm:gap-3.5 max-w-full">
         {EVENTS_DATA.map((event) => {
           const isActive = activeTab === event.id;
           return (
             <button
               key={event.id}
               onClick={() => setActiveTab(event.id)}
-              className={`relative shrink-0 whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-bold tracking-wide transition-all duration-300 ease-out hover:scale-105 active:scale-95 md:px-5 md:py-2.5 md:text-sm ${
+              className={`relative shrink-0 whitespace-nowrap rounded-full px-4 py-2 text-xs font-extrabold tracking-wide transition-all duration-300 ease-out hover:scale-105 active:scale-95 md:px-5 md:py-2.5 md:text-sm ${
                 isActive
-                  ? "border-2 border-[#ffe8ad] bg-gradient-to-r from-[#d4a857]/40 via-[#f0d68a]/30 to-[#d4a857]/40 text-white shadow-[0_0_25px_rgba(240,214,138,0.6)] ring-2 ring-[#d4a857]/50 scale-105"
-                  : "border-2 border-white/20 bg-transparent text-white/90 hover:border-[#d4a857]/60 hover:text-white hover:shadow-[0_0_15px_rgba(212,168,87,0.3)]"
+                  ? "border-2 border-[#ffe8ad] bg-gradient-to-r from-[#d4a857] via-[#f0d68a] to-[#d4a857] text-[#050208] shadow-[0_0_30px_rgba(240,214,138,0.9)] scale-105 font-black"
+                  : "border-2 border-[#d4a857]/50 bg-[#080412]/90 text-white hover:border-[#ffe8ad] hover:bg-[#d4a857]/30 hover:text-white shadow-[0_4px_12px_rgba(0,0,0,0.8)]"
               }`}
             >
               {event.title}
@@ -44,9 +44,9 @@ export default function EventsSection() {
       </div>
 
       {/* Active Event Card */}
-      <div className="grid grid-cols-1 items-center gap-6 rounded-2xl border border-[#d4a857]/35 bg-transparent p-4 backdrop-blur-xs shadow-[0_0_30px_rgba(0,0,0,0.3)] md:grid-cols-12 md:p-6">
+      <div className="grid grid-cols-1 items-center gap-6 rounded-2xl border-2 border-[#d4a857]/60 bg-[#080410]/95 p-5 shadow-[0_10px_40px_rgba(0,0,0,0.9)] md:grid-cols-12 md:p-7">
         {/* Image Column */}
-        <div className="relative h-48 w-full overflow-hidden rounded-xl border border-[#d4a857]/40 shadow-xl md:col-span-5 md:h-64">
+        <div className="relative h-52 w-full overflow-hidden rounded-xl border-2 border-[#d4a857]/60 shadow-[0_0_25px_rgba(0,0,0,0.8)] md:col-span-5 md:h-64">
           <Image
             src={activeEvent.image}
             alt={activeEvent.title}
@@ -58,13 +58,13 @@ export default function EventsSection() {
 
         {/* Text Details Column */}
         <div className="flex flex-col justify-center text-left md:col-span-7">
-          <h3 className="mb-2 text-xl font-extrabold text-[#ffe8ad] drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)] md:text-2xl lg:text-3xl">
+          <h3 className="mb-2 text-2xl font-black text-[#ffe8ad] drop-shadow-[0_2px_10px_rgba(0,0,0,1)] md:text-3xl lg:text-4xl">
             {activeEvent.title}
           </h3>
-          <p className="mb-3 text-xs font-bold tracking-wider uppercase text-[#f0d68a]/90 drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)] md:text-sm">
+          <p className="mb-3 text-xs font-black tracking-widest uppercase text-[#f0d68a] drop-shadow-[0_2px_6px_rgba(0,0,0,1)] md:text-sm">
             {activeEvent.subtitle}
           </p>
-          <p className="text-sm font-medium leading-relaxed text-white/95 drop-shadow-[0_1px_4px_rgba(0,0,0,0.95)] md:text-base">
+          <p className="text-sm font-bold leading-relaxed text-white drop-shadow-[0_2px_6px_rgba(0,0,0,1)] md:text-base">
             {activeEvent.description}
           </p>
         </div>
