@@ -35,5 +35,13 @@ function copyRecursiveSync(src, dest) {
 }
 
 console.log(`Syncing build output from ${sourceDir} to ${targetDir}...`);
+
+// Clean stale _next directory in target to prevent orphaned chunks and hash mismatch
+const targetNextDir = path.join(targetDir, "_next");
+if (fs.existsSync(targetNextDir)) {
+  console.log(`Cleaning old asset directory ${targetNextDir}...`);
+  fs.rmSync(targetNextDir, { recursive: true, force: true });
+}
+
 copyRecursiveSync(sourceDir, targetDir);
 console.log("Successfully synced janmashtami25 static export into bvciitk/Janmashtami!");
