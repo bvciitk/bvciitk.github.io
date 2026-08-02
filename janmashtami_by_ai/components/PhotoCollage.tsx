@@ -1,52 +1,58 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 
 const COLLAGE_IMAGES = [
   // ════ TOP ROW ════
   {
     id: "top-left",
     title: "Kirtan Stage Performance",
-    src: "/Janmashtami/images/collage/IMG20220819194931_01.jpg",
-    fallbackSrc: "/images/collage/IMG20220819194931_01.jpg",
+    src: "/Janmashtami/images/collage/IMG20220819194931_01.webp",
+    fallbackSrc: "/images/collage/IMG20220819194931_01.webp",
   },
   {
     id: "top-middle",
     title: "Audience Seated in Auditorium",
-    src: "/Janmashtami/images/collage/WhatsApp Image 2026-08-01 at 12.50.21 PM.jpeg",
-    fallbackSrc: "/images/collage/WhatsApp Image 2026-08-01 at 12.50.21 PM.jpeg",
+    src: "/Janmashtami/images/collage/WhatsApp Image 2026-08-01 at 12.50.21 PM.webp",
+    fallbackSrc: "/images/collage/WhatsApp Image 2026-08-01 at 12.50.21 PM.webp",
   },
   {
     id: "top-right",
     title: "Jagannath Deities Altar",
-    src: "/Janmashtami/images/collage/imp1.JPG",
-    fallbackSrc: "/images/collage/imp1.JPG",
+    src: "/Janmashtami/images/collage/imp1.webp",
+    fallbackSrc: "/images/collage/imp1.webp",
   },
 
   // ════ BOTTOM ROW ════
   {
     id: "bottom-left",
     title: "Cultural Dance Performance",
-    src: "/Janmashtami/images/collage/IMG_9853.JPG",
-    fallbackSrc: "/images/collage/IMG_9853.JPG",
+    src: "/Janmashtami/images/collage/IMG_9853.webp",
+    fallbackSrc: "/images/collage/IMG_9853.webp",
   },
   {
     id: "bottom-middle",
     title: "Diorama Pastime Display",
-    src: "/Janmashtami/images/collage/IMG_0482.jpg",
-    fallbackSrc: "/images/collage/IMG_0482.jpg",
+    src: "/Janmashtami/images/collage/IMG_0482.webp",
+    fallbackSrc: "/images/collage/IMG_0482.webp",
   },
   {
     id: "bottom-right",
     title: "Mridanga Sankirtan Player",
-    src: "/Janmashtami/images/collage/IMG_9906.JPG",
-    fallbackSrc: "/images/collage/IMG_9906.JPG",
+    src: "/Janmashtami/images/collage/IMG_9906.webp",
+    fallbackSrc: "/images/collage/IMG_9906.webp",
   },
 ];
 
 export default function PhotoCollage() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [activeImageKey, setActiveImageKey] = useState<number>(0);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const openLightbox = (index: number) => {
     setSelectedIndex(index);
@@ -89,17 +95,18 @@ export default function PhotoCollage() {
               <div
                 key={img.id}
                 onClick={() => openLightbox(idx)}
-                className={`group relative w-full cursor-pointer overflow-hidden rounded-2xl border-[3px] border-[#a855f7] bg-[#050208] shadow-[0_0_25px_rgba(168,85,247,0.55)] transition-all duration-500 hover:border-[#d8b4fe] hover:shadow-[0_0_40px_rgba(216,180,254,0.95)] hover:scale-[1.03] ${widthClasses[idx]}`}
+                className={`group relative w-full cursor-pointer overflow-hidden rounded-2xl border-2 border-[#a855f7]/70 bg-[#050208] shadow-md transition-all duration-300 hover:border-[#ffe8ad] hover:shadow-[0_0_30px_rgba(192,132,252,0.7)] hover:scale-[1.03] transform-gpu ${widthClasses[idx]}`}
               >
                 <img
                   src={img.src}
+                  loading="lazy"
+                  decoding="async"
                   onError={(e) => {
                     (e.target as HTMLImageElement).src = img.fallbackSrc;
                   }}
                   alt=""
-                  className="block h-full w-full object-cover object-center rounded-[13px] transition-transform duration-700 group-hover:scale-105"
+                  className="block h-full w-full object-cover object-center rounded-[13px] transition-transform duration-300 group-hover:scale-105"
                 />
-
               </div>
             );
           })}
@@ -118,17 +125,18 @@ export default function PhotoCollage() {
               <div
                 key={img.id}
                 onClick={() => openLightbox(globalIdx)}
-                className={`group relative w-full cursor-pointer overflow-hidden rounded-2xl border-[3px] border-[#a855f7] bg-[#050208] shadow-[0_0_25px_rgba(168,85,247,0.55)] transition-all duration-500 hover:border-[#d8b4fe] hover:shadow-[0_0_40px_rgba(216,180,254,0.95)] hover:scale-[1.03] ${widthClasses[idx]}`}
+                className={`group relative w-full cursor-pointer overflow-hidden rounded-2xl border-2 border-[#a855f7]/70 bg-[#050208] shadow-md transition-all duration-300 hover:border-[#ffe8ad] hover:shadow-[0_0_30px_rgba(192,132,252,0.7)] hover:scale-[1.03] transform-gpu ${widthClasses[idx]}`}
               >
                 <img
                   src={img.src}
+                  loading="lazy"
+                  decoding="async"
                   onError={(e) => {
                     (e.target as HTMLImageElement).src = img.fallbackSrc;
                   }}
                   alt=""
-                  className="block h-full w-full object-cover object-center rounded-[13px] transition-transform duration-700 group-hover:scale-105"
+                  className="block h-full w-full object-cover object-center rounded-[13px] transition-transform duration-300 group-hover:scale-105"
                 />
-
               </div>
             );
           })}
@@ -141,97 +149,100 @@ export default function PhotoCollage() {
           href="/Janmashtami/view-more/"
           className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-full border-2 border-[#ffe8ad] bg-gradient-to-r from-[#a855f7] via-[#c084fc] to-[#a855f7] px-8 py-3.5 text-sm font-extrabold tracking-wider uppercase text-white shadow-[0_0_30px_rgba(168,85,247,0.7)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_45px_rgba(192,132,252,0.95)] hover:border-white active:scale-95"
         >
-          <span>View More Photos ✦</span>
+          <span>View More Photos</span>
           <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
         </a>
       </div>
 
-      {/* ════ FULLSCREEN LIGHTBOX MODAL — PURPLE BORDER WRAPS IMAGE BOUNDS EXACTLY ════ */}
-      {selectedIndex !== null && (
-        <div
-          onClick={() => setSelectedIndex(null)}
-          className="fixed inset-0 z-[200] flex items-center justify-center bg-black/94 p-4 backdrop-blur-xl transition-all duration-300"
-          style={{ animation: "lightboxFadeIn 0.3s ease-out forwards" }}
-        >
-          <style jsx>{`
-            @keyframes lightboxFadeIn {
-              from { opacity: 0; backdrop-filter: blur(0px); }
-              to { opacity: 1; backdrop-filter: blur(16px); }
-            }
-            @keyframes lightboxZoomIn {
-              0% { opacity: 0; transform: scale(0.82) translateY(24px); }
-              100% { opacity: 1; transform: scale(1) translateY(0); }
-            }
-            @keyframes imagePulse {
-              0% { transform: scale(0.96); opacity: 0.7; }
-              100% { transform: scale(1); opacity: 1; }
-            }
-          `}</style>
-
-          {/* Tight Image Container — Purple Border Exactly Fits Image Bounds */}
+      {/* ════ FULLSCREEN LIGHTBOX MODAL — PORTAL TO BODY AT Z-[9999] ════ */}
+      {mounted &&
+        selectedIndex !== null &&
+        createPortal(
           <div
-            key={activeImageKey}
-            onClick={(e) => e.stopPropagation()}
-            className="relative flex items-center justify-center max-h-[85vh] max-w-[90vw] rounded-2xl border-[3.5px] border-[#c084fc] bg-[#0c061a] p-1 shadow-[0_0_70px_rgba(192,132,252,0.85)]"
-            style={{ animation: "lightboxZoomIn 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards" }}
+            onClick={() => setSelectedIndex(null)}
+            className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/95 p-4 md:p-8 backdrop-blur-xl transition-all duration-300"
+            style={{ animation: "lightboxFadeIn 0.3s ease-out forwards" }}
           >
-            {/* Close Button */}
-            <button
-              onClick={() => setSelectedIndex(null)}
-              className="absolute -top-4 -right-4 z-20 flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#ffe8ad] bg-[#a855f7] text-white font-black text-base shadow-[0_0_25px_rgba(168,85,247,0.9)] transition-all hover:scale-110 active:scale-95 hover:bg-[#c084fc]"
-              title="Close (Esc)"
+            <style jsx global>{`
+              @keyframes lightboxFadeIn {
+                from { opacity: 0; backdrop-filter: blur(0px); }
+                to { opacity: 1; backdrop-filter: blur(16px); }
+              }
+              @keyframes lightboxZoomIn {
+                0% { opacity: 0; transform: scale(0.82) translateY(24px); }
+                100% { opacity: 1; transform: scale(1) translateY(0); }
+              }
+              @keyframes imagePulse {
+                0% { transform: scale(0.96); opacity: 0.7; }
+                100% { transform: scale(1); opacity: 1; }
+              }
+            `}</style>
+
+            {/* Tight Image Container — Purple Border Exactly Fits Image Bounds */}
+            <div
+              key={activeImageKey}
+              onClick={(e) => e.stopPropagation()}
+              className="relative flex items-center justify-center max-h-[82vh] max-w-[88vw] rounded-2xl border-[3.5px] border-[#c084fc] bg-[#0c061a] p-1 shadow-[0_0_70px_rgba(192,132,252,0.85)]"
+              style={{ animation: "lightboxZoomIn 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards" }}
             >
-              ✕
-            </button>
+              {/* Close Button — Placed safely inside top-right corner of image container */}
+              <button
+                onClick={() => setSelectedIndex(null)}
+                className="absolute top-3 right-3 z-30 flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#ffe8ad] bg-[#a855f7] text-white font-black text-base shadow-[0_0_25px_rgba(168,85,247,0.9)] transition-all hover:scale-110 active:scale-95 hover:bg-[#c084fc]"
+                title="Close (Esc)"
+              >
+                ✕
+              </button>
 
-            {/* Previous Image Button */}
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setSelectedIndex((prev) =>
-                  prev !== null ? (prev - 1 + COLLAGE_IMAGES.length) % COLLAGE_IMAGES.length : 0
-                );
-                setActiveImageKey(Date.now());
-              }}
-              className="absolute -left-5 top-1/2 z-20 -translate-y-1/2 flex h-11 w-11 items-center justify-center rounded-full border-2 border-[#ffe8ad]/80 bg-[#080412]/90 text-white font-bold text-xl backdrop-blur-md transition-all hover:bg-[#a855f7] hover:scale-110 hover:border-white shadow-xl md:-left-6"
-              title="Previous Photo (←)"
-            >
-              ‹
-            </button>
+              {/* Previous Image Button */}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelectedIndex((prev) =>
+                    prev !== null ? (prev - 1 + COLLAGE_IMAGES.length) % COLLAGE_IMAGES.length : 0
+                  );
+                  setActiveImageKey(Date.now());
+                }}
+                className="absolute -left-5 top-1/2 z-30 -translate-y-1/2 flex h-11 w-11 items-center justify-center rounded-full border-2 border-[#ffe8ad]/80 bg-[#080412]/90 text-white font-bold text-xl backdrop-blur-md transition-all hover:bg-[#a855f7] hover:scale-110 hover:border-white shadow-xl md:-left-6"
+                title="Previous Photo (←)"
+              >
+                ‹
+              </button>
 
-            {/* Next Image Button */}
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setSelectedIndex((prev) =>
-                  prev !== null ? (prev + 1) % COLLAGE_IMAGES.length : 0
-                );
-                setActiveImageKey(Date.now());
-              }}
-              className="absolute -right-5 top-1/2 z-20 -translate-y-1/2 flex h-11 w-11 items-center justify-center rounded-full border-2 border-[#ffe8ad]/80 bg-[#080412]/90 text-white font-bold text-xl backdrop-blur-md transition-all hover:bg-[#a855f7] hover:scale-110 hover:border-white shadow-xl md:-right-6"
-              title="Next Photo (→)"
-            >
-              ›
-            </button>
+              {/* Next Image Button */}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelectedIndex((prev) =>
+                    prev !== null ? (prev + 1) % COLLAGE_IMAGES.length : 0
+                  );
+                  setActiveImageKey(Date.now());
+                }}
+                className="absolute -right-5 top-1/2 z-30 -translate-y-1/2 flex h-11 w-11 items-center justify-center rounded-full border-2 border-[#ffe8ad]/80 bg-[#080412]/90 text-white font-bold text-xl backdrop-blur-md transition-all hover:bg-[#a855f7] hover:scale-110 hover:border-white shadow-xl md:-right-6"
+                title="Next Photo (→)"
+              >
+                ›
+              </button>
 
-            {/* Image — exactly fits inside border */}
-            <img
-              src={COLLAGE_IMAGES[selectedIndex].src}
-              onError={(e) => {
-                (e.target as HTMLImageElement).src = COLLAGE_IMAGES[selectedIndex].fallbackSrc;
-              }}
-              alt=""
-              className="block max-h-[82vh] w-auto max-w-[85vw] object-contain rounded-[13px] shadow-2xl transition-transform duration-300"
-              style={{ animation: "imagePulse 0.3s ease-out forwards" }}
-            />
+              {/* Image — exactly fits inside border */}
+              <img
+                src={COLLAGE_IMAGES[selectedIndex].src}
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = COLLAGE_IMAGES[selectedIndex].fallbackSrc;
+                }}
+                alt=""
+                className="block max-h-[78vh] w-auto max-w-[83vw] object-contain rounded-[13px] shadow-2xl transition-transform duration-300"
+                style={{ animation: "imagePulse 0.3s ease-out forwards" }}
+              />
 
-            {/* Counter Overlay at bottom right of image */}
-            <div className="absolute bottom-3 right-3 z-10 rounded-full border border-white/30 bg-black/80 px-3 py-0.5 text-[11px] font-bold text-[#f0d68a] backdrop-blur-sm shadow-md">
-              {selectedIndex + 1} / {COLLAGE_IMAGES.length}
+              {/* Counter Overlay at bottom right of image */}
+              <div className="absolute bottom-3 right-3 z-20 rounded-full border border-white/30 bg-black/80 px-3 py-0.5 text-[11px] font-bold text-[#f0d68a] backdrop-blur-sm shadow-md">
+                {selectedIndex + 1} / {COLLAGE_IMAGES.length}
+              </div>
             </div>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body
+        )}
     </div>
   );
 }

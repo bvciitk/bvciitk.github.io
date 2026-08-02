@@ -34,7 +34,8 @@ export default function Navbar({ onNavigate }: NavbarProps) {
     { label: "Events", percent: 0.26 },
     { label: "Aftermovies", percent: 0.50 },
     { label: "Gratitude", percent: 0.74 },
-    { label: "Gallery", percent: 0.95 },
+    { label: "Memories", percent: 0.95 },
+    { label: "Gallery", href: "/view-more" },
     { label: "Contact Us", href: "/contact" },
   ];
 
