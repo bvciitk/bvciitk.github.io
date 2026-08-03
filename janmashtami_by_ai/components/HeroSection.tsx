@@ -22,7 +22,7 @@ export default function HeroSection() {
   return (
     <div className="relative w-full max-w-4xl p-6 text-center md:p-10">
       {/* Background audio element */}
-      <audio ref={audioRef} loop src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=flute-meditation-113264.mp3" />
+      <audio ref={audioRef} loop src="/Janmashtami/audio/flute-meditation-113264.mp3" />
 
       {/* Flute Audio Button */}
       <div className="absolute top-4 right-4 md:top-6 md:right-6">

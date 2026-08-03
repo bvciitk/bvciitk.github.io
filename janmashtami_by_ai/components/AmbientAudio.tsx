@@ -9,7 +9,7 @@ export default function AmbientAudio() {
   const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
-    const audio = new Audio("https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=flute-meditation-113264.mp3");
+    const audio = new Audio("/Janmashtami/audio/flute-meditation-113264.mp3");
     audio.loop = true;
     audio.volume = 0.3;
     audio.preload = "none";
