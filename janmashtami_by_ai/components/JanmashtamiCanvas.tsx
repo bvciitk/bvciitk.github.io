@@ -62,45 +62,91 @@ function LoadingScreen({ progress }: { progress: number }) {
   const pct = Math.round(progress * 100);
 
   return (
-    <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#050208]">
-      {/* Background ambient glow */}
-      <div className="absolute inset-0 overflow-hidden">
+    <div className="fixed inset-0 z-[100] flex flex-col items-center justify-between overflow-hidden bg-[#050208] text-white select-none">
+      {/* 1. Background Image with Ken-Burns breathing effect */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <NextImage
+          src="/Janmashtami/images/janmashtami_loading.jpg"
+          alt="Janmashtami Divine Loading Screen"
+          fill
+          priority
+          unoptimized
+          className="object-cover object-center animate-slow-ken-burns scale-105 filter brightness-95 contrast-105"
+        />
+        {/* Dark Vignette & Radiant Gradients for Depth */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#050208] via-transparent to-[#050208]/75 pointer-events-none" />
+        <div className="absolute inset-0 bg-radial-gradient from-transparent via-[#050208]/20 to-[#050208]/90 pointer-events-none" />
+      </div>
+
+      {/* 2. Floating Golden Petals & Divine Aura FX */}
+      <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden">
+        {/* Animated glowing radial light behind the central Makhan Handi */}
         <div
-          className="animate-pulse-glow absolute top-1/2 left-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full"
+          className="animate-pulse-glow absolute top-1/2 left-1/2 h-[450px] w-[450px] -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none"
           style={{
             background:
-              "radial-gradient(circle, rgba(212,168,87,0.15) 0%, transparent 70%)",
+              "radial-gradient(circle, rgba(240,214,138,0.25) 0%, rgba(212,168,87,0.12) 45%, transparent 70%)",
           }}
         />
-      </div>
 
-      {/* Om symbol */}
-      <div className="animate-float relative mb-12">
-        <span className="text-glow-gold-strong text-7xl font-light tracking-widest text-[#d4a857] select-none md:text-8xl">
-          ॐ
-        </span>
-      </div>
-
-      {/* Loading text */}
-      <p className="mb-8 text-sm font-light tracking-[0.3em] uppercase text-white/40">
-        Preparing the Divine Experience
-      </p>
-
-      {/* Progress bar */}
-      <div className="relative w-64 md:w-80">
-        <div className="h-[1px] w-full bg-white/10">
+        {/* Ambient floating flower petals */}
+        {[...Array(14)].map((_, i) => (
           <div
-            className="h-full transition-all duration-300 ease-out"
+            key={i}
+            className="absolute rounded-full bg-gradient-to-r from-[#f0d68a] to-[#d4a857] opacity-70 animate-petal-fall"
+            style={{
+              left: `${10 + (i * 6.5) % 80}%`,
+              top: `-${5 + (i * 4) % 20}%`,
+              width: `${6 + (i % 3) * 4}px`,
+              height: `${10 + (i % 4) * 4}px`,
+              animationDuration: `${5 + (i % 5) * 2}s`,
+              animationDelay: `${i * 0.35}s`,
+              transform: `rotate(${i * 25}deg)`,
+              filter: "blur(0.4px)",
+            }}
+          />
+        ))}
+      </div>
+
+      {/* 3. Header / Branding */}
+      <div className="relative z-20 pt-8 text-center">
+        <p className="font-heading text-[11px] md:text-xs uppercase tracking-[0.4em] text-[#f0d68a]/90 text-glow-gold drop-shadow-md">
+          Bhaktivedanta Club IIT Kanpur
+        </p>
+      </div>
+
+      {/* 4. Center Pulsing Halo (Over the Makhan Handi pot in the background image) */}
+      <div className="relative z-20 flex flex-col items-center justify-center my-auto pointer-events-none">
+        <div className="w-56 h-56 md:w-72 md:h-72 rounded-full border border-[#f0d68a]/20 animate-ping opacity-25 absolute" />
+      </div>
+
+      {/* 5. Bottom Progress Bar & Loading Info */}
+      <div className="relative z-20 w-full max-w-md px-6 pb-10 flex flex-col items-center">
+        <div className="mb-2.5 flex items-center justify-between w-full text-xs tracking-[0.25em] uppercase text-[#f0d68a]/90 font-light">
+          <span className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-[#f0d68a] animate-ping" />
+            Preparing Divine Experience
+          </span>
+          <span className="font-mono text-[#f0d68a] font-bold text-sm text-glow-gold">
+            {pct}%
+          </span>
+        </div>
+
+        {/* Ornate Gold Progress Bar Track */}
+        <div className="relative h-2 w-full rounded-full bg-black/70 p-0.5 border border-[#d4a857]/50 shadow-[0_0_20px_rgba(212,168,87,0.35)] backdrop-blur-md overflow-hidden">
+          <div
+            className="h-full rounded-full transition-all duration-300 ease-out"
             style={{
               width: `${pct}%`,
               background:
-                "linear-gradient(90deg, rgba(212,168,87,0.3), rgba(212,168,87,0.8), rgba(240,214,138,1))",
-              boxShadow: "0 0 15px rgba(212,168,87,0.5)",
+                "linear-gradient(90deg, #a67c2e 0%, #d4a857 50%, #f0d68a 100%)",
+              boxShadow: "0 0 15px rgba(240, 214, 138, 0.9)",
             }}
           />
         </div>
-        <p className="mt-4 text-center font-mono text-xs tracking-widest text-white/30">
-          {pct}%
+
+        <p className="mt-3 text-[11px] font-light tracking-[0.3em] text-[#f0d68a]/70 uppercase text-center text-glow-gold">
+          Sri Krishna Janmashtami Mahotsav
         </p>
       </div>
     </div>
