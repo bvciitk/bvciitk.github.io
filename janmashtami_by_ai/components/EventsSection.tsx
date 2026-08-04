@@ -1,12 +1,20 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Image from "next/image";
 import { EVENTS_DATA, EventItem } from "@/data/janmashtamiData";
 
 export default function EventsSection() {
   const [activeTab, setActiveTab] = useState<string>(EVENTS_DATA[0].id);
   const activeEvent = EVENTS_DATA.find((e) => e.id === activeTab) || EVENTS_DATA[0];
+  const tabsRef = useRef<HTMLDivElement>(null);
+
+  const scrollTabs = (direction: "left" | "right") => {
+    if (tabsRef.current) {
+      const scrollAmount = direction === "left" ? -150 : 150;
+      tabsRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    }
+  };
 
   return (
     <div className="w-full max-w-5xl rounded-2xl sm:rounded-3xl border-2 border-[#d4a857]/60 bg-[#06030c]/90 p-3.5 sm:p-5 md:p-8 shadow-[0_0_60px_rgba(0,0,0,0.9)] backdrop-blur-md max-h-[88vh] overflow-y-auto sm:max-h-none scrollbar-none">
@@ -23,24 +31,48 @@ export default function EventsSection() {
         </p>
       </div>
 
-      {/* Tabs — Horizontally Scrollable on Mobile, Wrapped on Desktop */}
-      <div className="mb-3 flex items-center justify-start gap-2 overflow-x-auto p-1 scrollbar-none sm:mb-6 sm:justify-center sm:flex-wrap sm:gap-3.5 max-w-full">
-        {EVENTS_DATA.map((event) => {
-          const isActive = activeTab === event.id;
-          return (
-            <button
-              key={event.id}
-              onClick={() => setActiveTab(event.id)}
-              className={`relative shrink-0 whitespace-nowrap rounded-full px-3 py-1.5 text-[11px] font-extrabold tracking-wide transition-all duration-300 ease-out hover:scale-105 active:scale-95 sm:px-4 sm:py-2 sm:text-xs md:px-5 md:py-2.5 md:text-sm ${
-                isActive
-                  ? "border-2 border-[#ffe8ad] bg-gradient-to-r from-[#d4a857] via-[#f0d68a] to-[#d4a857] text-[#050208] shadow-[0_0_30px_rgba(240,214,138,0.9)] scale-105 font-black"
-                  : "border-2 border-[#d4a857]/50 bg-[#080412]/90 text-white hover:border-[#ffe8ad] hover:bg-[#d4a857]/30 hover:text-white shadow-[0_4px_12px_rgba(0,0,0,0.8)]"
-              }`}
-            >
-              {event.title}
-            </button>
-          );
-        })}
+      {/* Tabs Row Container with Interactive Scroll Arrows on Mobile */}
+      <div className="relative mb-2 flex items-center sm:mb-6">
+        {/* Left Scroll Arrow (Mobile only) */}
+        <button
+          onClick={() => scrollTabs("left")}
+          aria-label="Scroll left"
+          className="absolute left-0 z-10 flex h-7 w-7 items-center justify-center rounded-full border border-[#d4a857]/80 bg-[#0c051a]/90 text-[#ffe8ad] text-base font-bold shadow-lg backdrop-blur-sm transition-transform active:scale-90 sm:hidden"
+        >
+          ‹
+        </button>
+
+        {/* Scrollable Tabs List */}
+        <div
+          ref={tabsRef}
+          className="flex w-full items-center justify-start gap-2 overflow-x-auto px-7 py-1 scrollbar-none sm:justify-center sm:flex-wrap sm:gap-3.5 sm:px-0"
+        >
+          {EVENTS_DATA.map((event) => {
+            const isActive = activeTab === event.id;
+            return (
+              <button
+                key={event.id}
+                onClick={() => setActiveTab(event.id)}
+                className={`relative shrink-0 whitespace-nowrap rounded-full px-3 py-1.5 text-[11px] font-extrabold tracking-wide transition-all duration-300 ease-out hover:scale-105 active:scale-95 sm:px-4 sm:py-2 sm:text-xs md:px-5 md:py-2.5 md:text-sm ${
+                  isActive
+                    ? "border-2 border-[#ffe8ad] bg-gradient-to-r from-[#d4a857] via-[#f0d68a] to-[#d4a857] text-[#050208] shadow-[0_0_30px_rgba(240,214,138,0.9)] scale-105 font-black"
+                    : "border-2 border-[#d4a857]/50 bg-[#080412]/90 text-white hover:border-[#ffe8ad] hover:bg-[#d4a857]/30 hover:text-white shadow-[0_4px_12px_rgba(0,0,0,0.8)]"
+                }`}
+              >
+                {event.title}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Right Animated Scroll Arrow Indicator (Mobile only) */}
+        <button
+          onClick={() => scrollTabs("right")}
+          aria-label="Scroll right"
+          className="absolute right-0 z-10 flex h-7 w-7 animate-pulse items-center justify-center rounded-full border border-[#ffe8ad] bg-gradient-to-r from-[#d4a857] to-[#eab308] text-[#050208] text-base font-black shadow-[0_0_15px_rgba(240,214,138,0.9)] transition-transform active:scale-90 sm:hidden"
+        >
+          ›
+        </button>
       </div>
 
       {/* Active Event Card */}
