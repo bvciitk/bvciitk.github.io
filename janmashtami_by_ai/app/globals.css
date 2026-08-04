@@ -67,9 +67,9 @@ canvas, .fixed {
     -webkit-backdrop-filter: none !important;
   }
 
-  /* High contrast solid dark background for mobile navigation */
+  /* Transparent mobile navigation header */
   nav {
-    background-color: rgba(8, 4, 16, 0.96) !important;
+    background-color: transparent !important;
   }
 }
 
