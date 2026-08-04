@@ -86,7 +86,7 @@ export default function PhotoCollage() {
       {/* Floating Photo Collage Grid with Complete Purple Borders */}
       <div className="flex w-full flex-col gap-3 sm:gap-5">
         {/* ════ TOP ROW ════ */}
-        <div className="flex w-full flex-col items-start justify-between gap-3.5 sm:flex-row md:gap-5">
+        <div className="grid w-full grid-cols-2 items-start justify-between gap-3.5 sm:flex sm:flex-row md:gap-5">
           {COLLAGE_IMAGES.slice(0, 3).map((img, idx) => {
             const widthClasses = [
               "sm:w-[35%] aspect-[16/10]",
@@ -117,7 +117,7 @@ export default function PhotoCollage() {
         </div>
 
         {/* ════ BOTTOM ROW ════ */}
-        <div className="flex w-full flex-col items-end justify-between gap-3.5 sm:flex-row md:gap-5">
+        <div className="grid w-full grid-cols-2 items-end justify-between gap-3.5 sm:flex sm:flex-row md:gap-5">
           {COLLAGE_IMAGES.slice(3, 6).map((img, idx) => {
             const globalIdx = idx + 3;
             const widthClasses = [

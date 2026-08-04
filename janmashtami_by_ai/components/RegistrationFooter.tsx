@@ -54,7 +54,7 @@ export default function RegistrationFooter() {
             <img
               src="/Janmashtami/images/Participants.jpeg"
               alt="Call for Participation - Janmashtami '26 IITK"
-              className="block h-auto max-h-[340px] w-full max-w-[260px] sm:max-w-[290px] rounded-[14px] object-cover"
+              className="block h-auto max-h-[340px] w-full max-w-[200px] sm:max-w-[260px] md:max-w-[290px] rounded-[14px] object-cover"
             />
             <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
               <span className="rounded-full border border-[#ffe8ad] bg-[#0c051a]/90 px-3 py-1 text-xs font-bold text-[#ffe8ad] shadow-lg">
@@ -67,11 +67,11 @@ export default function RegistrationFooter() {
         {/* RIGHT: Categories Grid & Direct Form CTA */}
         <div className="flex flex-col justify-between md:col-span-7">
           {/* Categories Grid */}
-          <div className="grid grid-cols-2 gap-2.5 text-xs sm:gap-3 sm:text-sm">
+          <div className="flex overflow-x-auto sm:grid sm:grid-cols-2 gap-2.5 sm:gap-3 text-xs sm:text-sm scrollbar-none pb-2 sm:pb-0">
             {categories.map((cat, idx) => (
               <div
                 key={idx}
-                className="flex items-center gap-2.5 rounded-xl border border-white/10 bg-white/5 px-3 py-2 backdrop-blur-sm transition-all hover:border-[#d4a857]/60 hover:bg-[#d4a857]/15 hover:scale-[1.02]"
+                className="flex whitespace-nowrap shrink-0 sm:shrink items-center gap-2.5 rounded-xl border border-white/10 bg-white/5 px-3 py-2 backdrop-blur-sm transition-all hover:border-[#d4a857]/60 hover:bg-[#d4a857]/15 hover:scale-[1.02]"
               >
                 <span className="text-base">{cat.icon}</span>
                 <span className="font-bold text-[#f3e8ff] truncate">

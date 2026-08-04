@@ -24,21 +24,20 @@ export default function HeroSection() {
       {/* Background audio element */}
       <audio ref={audioRef} loop src="/Janmashtami/audio/flute-meditation-113264.mp3" />
 
-      {/* Flute Audio Button */}
-      <div className="absolute top-4 right-4 md:top-6 md:right-6">
+      {/* Header Pill & Flute Button Row */}
+      <div className="mb-4 flex flex-wrap items-center justify-center gap-3">
+        <div className="inline-flex items-center gap-2 rounded-full border border-[#d4a857]/40 bg-[#d4a857]/10 px-4 py-1.5 backdrop-blur-sm">
+          <span className="text-xs font-semibold tracking-widest uppercase text-[#f0d68a] md:text-sm">
+            ✦ Divine Celebration ✦
+          </span>
+        </div>
+
         <button
           onClick={toggleAudio}
           className="flex items-center gap-2 rounded-full border border-[#d4a857]/40 bg-[#d4a857]/15 px-3 py-1.5 text-xs font-medium text-[#f0d68a] backdrop-blur-sm transition-all hover:bg-[#d4a857]/30 hover:shadow-[0_0_15px_rgba(212,168,87,0.3)] md:px-4 md:py-2 md:text-sm"
         >
           <span>{isPlaying ? "🔊 Pause Flute" : "🎵 Play Sacred Flute"}</span>
         </button>
-      </div>
-
-      {/* Header Pill */}
-      <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#d4a857]/40 bg-[#d4a857]/10 px-4 py-1.5 backdrop-blur-sm">
-        <span className="text-xs font-semibold tracking-widest uppercase text-[#f0d68a] md:text-sm">
-          ✦ Divine Celebration ✦
-        </span>
       </div>
 
       {/* Main Title */}

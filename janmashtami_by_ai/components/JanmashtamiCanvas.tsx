@@ -69,7 +69,6 @@ function LoadingScreen({ progress }: { progress: number }) {
           src="/Janmashtami/images/janmashtami_loading.jpg"
           alt="Janmashtami Divine Loading Screen"
           fill
-          priority
           unoptimized
           className="object-cover object-center animate-slow-ken-burns scale-105 filter brightness-95 contrast-105"
         />
@@ -305,17 +304,17 @@ function SectionTitleOverlay({
 
   return (
     <div
-      className={`pointer-events-none fixed inset-0 z-30 flex flex-col justify-center px-4 sm:px-6 ${alignClass}`}
+      className={`pointer-events-none fixed inset-0 z-30 flex flex-col justify-center px-4 pt-14 sm:pt-0 sm:px-6 ${alignClass}`}
       style={{
         opacity,
         transform: `translateY(${yOffset}px)`,
       }}
     >
       <h2
-        className={`text-glow-gold-strong mb-4 max-w-4xl font-bold tracking-tight text-white/95 md:mb-6 ${
+        className={`text-glow-gold-strong mb-3 max-w-4xl font-bold tracking-tight text-white/95 sm:mb-4 md:mb-6 ${
           align === "center"
-            ? "text-3xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl"
-            : "text-2xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl"
+            ? "text-2xl sm:text-4xl md:text-7xl lg:text-8xl xl:text-9xl"
+            : "text-[22px] sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl"
         }`}
         style={{ fontFamily: "var(--font-heading)" }}
       >
@@ -358,7 +357,13 @@ function SectionTitleOverlay({
 }
 
 // ─── Centered Initial Logo ───
-function CenteredJanmashtamiLogo({ scrollProgress }: { scrollProgress: number }) {
+function CenteredJanmashtamiLogo({
+  scrollProgress,
+  isMobile = false,
+}: {
+  scrollProgress: number;
+  isMobile?: boolean;
+}) {
   const safeProgress =
     Number.isNaN(scrollProgress) || typeof scrollProgress !== "number"
       ? 0
@@ -369,7 +374,7 @@ function CenteredJanmashtamiLogo({ scrollProgress }: { scrollProgress: number })
   const t = Math.min(Math.max(safeProgress / LOGO_FADE_THRESHOLD, 0), 1);
   const rawOpacity = 1 - Math.pow(t, 1.5);
   const opacity = Number.isNaN(rawOpacity) ? 0 : Math.max(0, Math.min(1, rawOpacity));
-  const yOffset = -15 - 70 * t;
+  const yOffset = isMobile ? -5 - 30 * t : -15 - 70 * t;
   const scale = 1 - 0.02 * t;
 
   if (opacity <= 0.001) return null;
@@ -388,7 +393,7 @@ function CenteredJanmashtamiLogo({ scrollProgress }: { scrollProgress: number })
         <div className="absolute -inset-16 -z-10 rounded-full bg-radial from-[#d4a857]/20 via-black/60 to-transparent blur-3xl opacity-90 pointer-events-none" />
 
         {/* Logo Emblem with Glowing Halo */}
-        <div className="relative mb-3 h-24 w-24 overflow-hidden rounded-full border-2 border-[#d4a857] shadow-[0_0_40px_rgba(212,168,87,0.7)] sm:h-32 sm:w-32 md:h-40 md:w-40 md:mb-5">
+        <div className="relative mb-2 h-16 w-16 overflow-hidden rounded-full border-2 border-[#d4a857] shadow-[0_0_40px_rgba(212,168,87,0.7)] sm:h-32 sm:w-32 md:h-40 md:w-40 md:mb-5">
           <NextImage
             src="/Janmashtami/images/logo.png"
             alt="Janmashtami BVC IITK Logo"
@@ -399,7 +404,7 @@ function CenteredJanmashtamiLogo({ scrollProgress }: { scrollProgress: number })
 
         {/* Title */}
         <h1
-          className="w-full text-center text-3xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#ffffff] via-[#f0d68a] to-[#d4a857] drop-shadow-[0_4px_28px_rgba(0,0,0,0.98)] drop-shadow-[0_0_40px_rgba(212,168,87,0.5)] sm:text-5xl md:text-7xl lg:text-8xl sm:tracking-[0.08em] md:tracking-[0.14em]"
+          className="w-full text-center text-[26px] font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#ffffff] via-[#f0d68a] to-[#d4a857] drop-shadow-[0_4px_28px_rgba(0,0,0,0.98)] drop-shadow-[0_0_40px_rgba(212,168,87,0.5)] sm:text-5xl md:text-7xl lg:text-8xl tracking-[0.05em] sm:tracking-[0.08em] md:tracking-[0.14em]"
           style={{ fontFamily: "var(--font-heading)" }}
         >
           JANMASHTAMI
@@ -519,13 +524,13 @@ export default function JanmashtamiCanvas() {
   });
 
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: reducedMotion ? 300 : 70,
-    damping: reducedMotion ? 50 : 35,
+    stiffness: reducedMotion ? 300 : isMobileDevice ? 160 : 70,
+    damping: reducedMotion ? 50 : isMobileDevice ? 24 : 35,
     restDelta: 0.0005,
   });
 
-  // On mobile screens, use raw scrollYProgress directly for 120Hz instant touch tracking
-  const activeProgressMotion = isMobileDevice ? scrollYProgress : smoothProgress;
+  // Use smooth spring for all devices to prevent choppy scrolling
+  const activeProgressMotion = smoothProgress;
 
   useMotionValueEvent(activeProgressMotion, "change", (latest) => {
     setCurrentProgress(latest);
@@ -712,16 +717,33 @@ export default function JanmashtamiCanvas() {
 
       let drawW: number, drawH: number, drawX: number, drawY: number;
 
-      if (canvasAspect > imgAspect) {
+      if (isMobile) {
+        // 1. Ambient Background: Fast 60fps dark cover background (no laggy CPU ctx.filter)
+        ctx.globalAlpha = 0.3;
+        const bgDrawH = displayH;
+        const bgDrawW = displayH * imgAspect;
+        const bgDrawX = (displayW - bgDrawW) / 2;
+        ctx.drawImage(img, srcX, srcY, srcW, srcH, bgDrawX, 0, bgDrawW, bgDrawH);
+        ctx.globalAlpha = 1.0;
+
+        // 2. Sharp 16:9 Video in Center: 100% of video content visible
         drawW = displayW;
         drawH = displayW / imgAspect;
         drawX = 0;
         drawY = (displayH - drawH) / 2;
       } else {
-        drawH = displayH;
-        drawW = displayH * imgAspect;
-        drawX = (displayW - drawW) / 2;
-        drawY = 0;
+        // Cover fit for desktop
+        if (canvasAspect > imgAspect) {
+          drawW = displayW;
+          drawH = displayW / imgAspect;
+          drawX = 0;
+          drawY = (displayH - drawH) / 2;
+        } else {
+          drawH = displayH;
+          drawW = displayH * imgAspect;
+          drawX = (displayW - drawW) / 2;
+          drawY = 0;
+        }
       }
 
       ctx.drawImage(img, srcX, srcY, srcW, srcH, drawX, drawY, drawW, drawH);
@@ -848,7 +870,12 @@ export default function JanmashtamiCanvas() {
       )}
 
       {/* ═══ CENTERED INITIAL LOGO — fades out on scroll before video starts ═══ */}
-      {isLoaded && <CenteredJanmashtamiLogo scrollProgress={currentProgress} />}
+      {isLoaded && (
+        <CenteredJanmashtamiLogo
+          scrollProgress={currentProgress}
+          isMobile={isMobileDevice}
+        />
+      )}
 
       {/* ═══ FIXED FULLSCREEN CANVAS — always behind everything ═══ */}
       <canvas

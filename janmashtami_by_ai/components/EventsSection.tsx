@@ -9,7 +9,7 @@ export default function EventsSection() {
   const activeEvent = EVENTS_DATA.find((e) => e.id === activeTab) || EVENTS_DATA[0];
 
   return (
-    <div className="w-full max-w-5xl rounded-3xl border-2 border-[#d4a857]/60 bg-[#06030c]/85 p-5 shadow-[0_0_60px_rgba(0,0,0,0.9)] backdrop-blur-md md:p-8">
+    <div className="w-full max-w-5xl rounded-3xl border-2 border-[#d4a857]/60 bg-[#06030c]/85 p-4 sm:p-5 shadow-[0_0_60px_rgba(0,0,0,0.9)] backdrop-blur-md md:p-8">
       {/* Title Header */}
       <div className="mb-5 text-center sm:mb-6">
         <h2
@@ -44,9 +44,9 @@ export default function EventsSection() {
       </div>
 
       {/* Active Event Card */}
-      <div className="grid grid-cols-1 items-center gap-6 rounded-2xl border-2 border-[#d4a857]/60 bg-[#080410]/95 p-5 shadow-[0_10px_40px_rgba(0,0,0,0.9)] md:grid-cols-12 md:p-7">
+      <div className="grid grid-cols-1 items-center gap-6 rounded-2xl border-2 border-[#d4a857]/60 bg-[#080410]/95 p-4 sm:p-5 shadow-[0_10px_40px_rgba(0,0,0,0.9)] md:grid-cols-12 md:p-7">
         {/* Image Column */}
-        <div className="relative h-52 w-full overflow-hidden rounded-xl border-2 border-[#d4a857]/60 shadow-[0_0_25px_rgba(0,0,0,0.8)] md:col-span-5 md:h-64">
+        <div className="relative h-40 sm:h-52 w-full overflow-hidden rounded-xl border-2 border-[#d4a857]/60 shadow-[0_0_25px_rgba(0,0,0,0.8)] md:col-span-5 md:h-64">
           <Image
             src={activeEvent.image}
             alt={activeEvent.title}

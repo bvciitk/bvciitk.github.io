@@ -122,49 +122,25 @@ export default function AftermoviesSection() {
               </div>
             </div>
 
-            {/* Year Selector Tabs — 2 Rows: 5 in top row, 2 centered in bottom row */}
-            <div className="mb-6 flex flex-col items-center gap-2.5 sm:gap-3 w-full">
-              {/* Row 1: Top 5 years (2025 - 2021) */}
-              <div className="flex w-full items-center justify-center gap-2 sm:gap-3">
-                {AFTERMOVIES.slice(0, 5).map((v) => {
-                  const isActive = selectedYear === v.year;
-                  return (
-                    <button
-                      key={v.year}
-                      onClick={() => setSelectedYear(v.year)}
-                      className={`flex-1 flex items-center justify-center gap-1 rounded-full py-2.5 px-2 text-xs sm:text-sm font-black tracking-wider transition-all duration-300 hover:scale-105 active:scale-95 shadow-md ${
-                        isActive
-                          ? "border-2 border-[#ffe8ad] bg-gradient-to-r from-[#d4a857] via-[#f0d68a] to-[#d4a857] text-[#050208] shadow-[0_0_25px_rgba(240,214,138,0.9)] scale-105"
-                          : "border-2 border-[#d4a857]/50 bg-[#080412]/90 text-white hover:border-[#ffe8ad] hover:bg-[#d4a857]/40 shadow-[0_4px_12px_rgba(0,0,0,0.8)]"
-                      }`}
-                    >
-                      {isActive && <span className="text-[10px] text-[#050208]">▶</span>}
-                      <span>{v.year}</span>
-                    </button>
-                  );
-                })}
-              </div>
-
-              {/* Row 2: Bottom 2 years (2019, 2018 - Centered) */}
-              <div className="flex items-center justify-center gap-2.5 sm:gap-3 w-full max-w-[280px] sm:max-w-[340px]">
-                {AFTERMOVIES.slice(5).map((v) => {
-                  const isActive = selectedYear === v.year;
-                  return (
-                    <button
-                      key={v.year}
-                      onClick={() => setSelectedYear(v.year)}
-                      className={`flex-1 flex items-center justify-center gap-1 rounded-full py-2.5 px-4 text-xs sm:text-sm font-black tracking-wider transition-all duration-300 hover:scale-105 active:scale-95 shadow-md ${
-                        isActive
-                          ? "border-2 border-[#ffe8ad] bg-gradient-to-r from-[#d4a857] via-[#f0d68a] to-[#d4a857] text-[#050208] shadow-[0_0_25px_rgba(240,214,138,0.9)] scale-105"
-                          : "border-2 border-[#d4a857]/50 bg-[#080412]/90 text-white hover:border-[#ffe8ad] hover:bg-[#d4a857]/40 shadow-[0_4px_12px_rgba(0,0,0,0.8)]"
-                      }`}
-                    >
-                      {isActive && <span className="text-[10px] text-[#050208]">▶</span>}
-                      <span>{v.year}</span>
-                    </button>
-                  );
-                })}
-              </div>
+            {/* Year Selector Tabs — Horizontally Scrollable on Mobile, Wrapped on Desktop */}
+            <div className="mb-6 flex w-full items-center justify-start gap-2 sm:justify-center sm:flex-wrap sm:gap-3 overflow-x-auto p-1.5 scrollbar-none">
+              {AFTERMOVIES.map((v) => {
+                const isActive = selectedYear === v.year;
+                return (
+                  <button
+                    key={v.year}
+                    onClick={() => setSelectedYear(v.year)}
+                    className={`relative shrink-0 flex items-center justify-center gap-1.5 rounded-full py-2 px-3.5 sm:py-2.5 sm:px-4 text-xs sm:text-sm font-black tracking-wider transition-all duration-300 hover:scale-105 active:scale-95 shadow-md ${
+                      isActive
+                        ? "border-2 border-[#ffe8ad] bg-gradient-to-r from-[#d4a857] via-[#f0d68a] to-[#d4a857] text-[#050208] shadow-[0_0_25px_rgba(240,214,138,0.9)] scale-105"
+                        : "border-2 border-[#d4a857]/50 bg-[#080412]/90 text-white hover:border-[#ffe8ad] hover:bg-[#d4a857]/40 shadow-[0_4px_12px_rgba(0,0,0,0.8)]"
+                    }`}
+                  >
+                    {isActive && <span className="text-[10px] text-[#050208]">▶</span>}
+                    <span>{v.year}</span>
+                  </button>
+                );
+              })}
             </div>
           </div>
 

@@ -99,46 +99,46 @@ export default function VolunteerModal() {
               </button>
 
               {/* LEFT COLUMN: Official Poster Image */}
-              <div className="relative flex items-center justify-center bg-[#070310] p-4 md:w-5/12 md:p-6">
-                <div className="relative overflow-hidden rounded-2xl border-2 border-[#ffe8ad] shadow-[0_0_35px_rgba(212,168,87,0.5)]">
+              <div className="relative flex shrink-0 items-center justify-center bg-[#070310] p-2 max-h-[24vh] md:max-h-none md:w-5/12 md:p-6">
+                <div className="relative max-h-full overflow-hidden rounded-xl border border-[#ffe8ad] shadow-[0_0_20px_rgba(212,168,87,0.5)]">
                   <img
                     src="/Janmashtami/images/Participants.jpeg"
                     alt="Call for Participation - Janmashtami '26 IITK"
-                    className="block h-auto max-h-[60vh] w-full rounded-[14px] object-cover md:max-h-[70vh]"
+                    className="block h-auto max-h-[20vh] sm:max-h-[50vh] md:max-h-[70vh] w-auto rounded-[10px] object-contain"
                   />
                 </div>
               </div>
 
               {/* RIGHT COLUMN: Details & Form Link */}
-              <div className="flex flex-1 flex-col justify-between overflow-y-auto p-5 md:p-7">
+              <div className="flex flex-1 flex-col justify-between overflow-y-auto min-h-0 p-4 md:p-7">
                 <div>
                   {/* Top Badge */}
-                  <div className="mb-2.5 inline-flex items-center gap-2 rounded-full border border-[#d4a857]/50 bg-[#d4a857]/15 px-3 py-1 backdrop-blur-md">
-                    <span className="text-[11px] font-bold tracking-widest uppercase text-[#f0d68a]">
+                  <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-[#d4a857]/50 bg-[#d4a857]/15 px-3 py-0.5 backdrop-blur-md">
+                    <span className="text-[10px] font-bold tracking-widest uppercase text-[#f0d68a] sm:text-[11px]">
                       ✦ Call for Participation ✦
                     </span>
                   </div>
 
                   {/* Modal Title */}
                   <h2
-                    className="text-2xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-[#ffe8ad] to-[#d4a857] drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] sm:text-3xl"
+                    className="text-xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-[#ffe8ad] to-[#d4a857] drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] sm:text-3xl"
                     style={{ fontFamily: "var(--font-heading)" }}
                   >
                     Janmashtami '26 IITK
                   </h2>
-                  <p className="mt-1.5 text-xs font-semibold text-white/80 md:text-sm">
+                  <p className="mt-1 text-xs font-semibold text-white/80 md:text-sm">
                     Be a part of the grandest celebration at IIT Kanpur! Participate or volunteer in exciting events:
                   </p>
 
-                  {/* Categories Grid (Expanded to fill space) */}
-                  <div className="mt-4 grid grid-cols-2 gap-2.5 text-xs sm:gap-3 sm:text-sm">
+                  {/* Categories Grid (Compact on mobile to fit nicely) */}
+                  <div className="mt-3 grid grid-cols-2 gap-2 text-xs sm:gap-3 sm:text-sm">
                     {categories.map((cat, idx) => (
                       <div
                         key={idx}
-                        className="flex items-center gap-2.5 rounded-xl border border-white/10 bg-white/5 px-3 py-2 backdrop-blur-sm transition-all hover:border-[#d4a857]/60 hover:bg-[#d4a857]/15 hover:scale-[1.02]"
+                        className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-2.5 py-1.5 backdrop-blur-sm transition-all hover:border-[#d4a857]/60 hover:bg-[#d4a857]/15 hover:scale-[1.02]"
                       >
-                        <span className="text-base">{cat.icon}</span>
-                        <span className="font-bold text-[#f3e8ff] truncate">
+                        <span className="text-sm sm:text-base">{cat.icon}</span>
+                        <span className="font-bold text-[#f3e8ff] truncate text-[11px] sm:text-xs">
                           {cat.label}
                         </span>
                       </div>
