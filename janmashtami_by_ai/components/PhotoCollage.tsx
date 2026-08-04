@@ -83,10 +83,39 @@ export default function PhotoCollage() {
 
   return (
     <div className="relative mx-auto flex w-[94vw] sm:w-[82vw] max-w-[1300px] flex-col items-center justify-center p-1 sm:p-4">
-      {/* Floating Photo Collage Grid with Complete Purple Borders */}
-      <div className="flex w-full flex-col gap-3 sm:gap-5">
+      {/* ════ MOBILE COLLAGE BENTO GRID (< 640px) ════ */}
+      <div className="grid w-full grid-cols-2 gap-2.5 sm:hidden">
+        {COLLAGE_IMAGES.map((img, idx) => {
+          const isFeatured = idx === 0 || idx === 5;
+          return (
+            <div
+              key={img.id}
+              onClick={() => openLightbox(idx)}
+              className={`group relative cursor-pointer overflow-hidden rounded-xl border-2 border-[#a855f7]/70 bg-[#050208] shadow-md transition-all duration-300 active:scale-95 ${
+                isFeatured ? "col-span-2 aspect-[16/9]" : "col-span-1 aspect-[4/3]"
+              }`}
+            >
+              <img
+                src={img.src}
+                loading="lazy"
+                decoding="async"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = img.fallbackSrc;
+                }}
+                alt={img.title}
+                className={`block h-full w-full object-cover rounded-[10px] transition-transform duration-300 group-hover:scale-105 ${
+                  img.objectPosition || "object-center"
+                }`}
+              />
+            </div>
+          );
+        })}
+      </div>
+
+      {/* ════ DESKTOP PHOTO COLLAGE GRID (>= 640px) ════ */}
+      <div className="hidden sm:flex w-full flex-col gap-3 sm:gap-5">
         {/* ════ TOP ROW ════ */}
-        <div className="grid w-full grid-cols-2 items-start justify-between gap-3.5 sm:flex sm:flex-row md:gap-5">
+        <div className="flex w-full flex-row items-start justify-between gap-3.5 md:gap-5">
           {COLLAGE_IMAGES.slice(0, 3).map((img, idx) => {
             const widthClasses = [
               "sm:w-[35%] aspect-[16/10]",
@@ -106,7 +135,7 @@ export default function PhotoCollage() {
                   onError={(e) => {
                     (e.target as HTMLImageElement).src = img.fallbackSrc;
                   }}
-                  alt=""
+                  alt={img.title}
                   className={`block h-full w-full object-cover rounded-[13px] transition-transform duration-300 group-hover:scale-105 ${
                     img.objectPosition || "object-center"
                   }`}
@@ -117,7 +146,7 @@ export default function PhotoCollage() {
         </div>
 
         {/* ════ BOTTOM ROW ════ */}
-        <div className="grid w-full grid-cols-2 items-end justify-between gap-3.5 sm:flex sm:flex-row md:gap-5">
+        <div className="flex w-full flex-row items-end justify-between gap-3.5 md:gap-5">
           {COLLAGE_IMAGES.slice(3, 6).map((img, idx) => {
             const globalIdx = idx + 3;
             const widthClasses = [
@@ -138,7 +167,7 @@ export default function PhotoCollage() {
                   onError={(e) => {
                     (e.target as HTMLImageElement).src = img.fallbackSrc;
                   }}
-                  alt=""
+                  alt={img.title}
                   className={`block h-full w-full object-cover rounded-[13px] transition-transform duration-300 group-hover:scale-105 ${
                     img.objectPosition || "object-center"
                   }`}
@@ -150,10 +179,10 @@ export default function PhotoCollage() {
       </div>
 
       {/* ════ VIEW MORE BUTTON BELOW COLLAGE ════ */}
-      <div className="mt-8 flex justify-center">
+      <div className="mt-4 sm:mt-8 flex justify-center">
         <a
           href="/Janmashtami/view-more/"
-          className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-full border-2 border-[#ffe8ad] bg-gradient-to-r from-[#a855f7] via-[#c084fc] to-[#a855f7] px-8 py-3.5 text-sm font-extrabold tracking-wider uppercase text-white shadow-[0_0_30px_rgba(168,85,247,0.7)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_45px_rgba(192,132,252,0.95)] hover:border-white active:scale-95"
+          className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border-2 border-[#ffe8ad] bg-gradient-to-r from-[#a855f7] via-[#c084fc] to-[#a855f7] px-6 py-2.5 text-xs font-extrabold tracking-wider uppercase text-white shadow-[0_0_30px_rgba(168,85,247,0.7)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_45px_rgba(192,132,252,0.95)] hover:border-white active:scale-95 sm:px-8 sm:py-3.5 sm:text-sm sm:gap-2.5"
         >
           <span>View More Photos</span>
           <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>

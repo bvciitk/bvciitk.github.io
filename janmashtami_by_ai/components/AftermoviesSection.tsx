@@ -173,21 +173,21 @@ export default function AftermoviesSection() {
 
         {/* Right Column: About Janmashtami & Animated Numbers */}
         <div className="flex flex-col justify-between lg:col-span-6">
-          <div>
+          {/* Quote Card (Hidden on mobile to keep Aftermovies section compact) */}
+          <div className="hidden sm:block">
             <h2
-              className="mb-2 text-center text-base font-black tracking-wider uppercase text-transparent bg-clip-text bg-gradient-to-r from-[#ffffff] via-[#ffe8ad] to-[#d4a857] drop-shadow-[0_4px_12px_rgba(0,0,0,1)] lg:text-left sm:mb-4 sm:text-2xl md:text-3xl"
+              className="mb-4 text-center text-xl font-black tracking-wider uppercase text-transparent bg-clip-text bg-gradient-to-r from-[#ffffff] via-[#ffe8ad] to-[#d4a857] drop-shadow-[0_4px_12px_rgba(0,0,0,1)] lg:text-left md:text-3xl"
               style={{ fontFamily: "var(--font-heading)" }}
             >
               ABOUT JANMASTHAMI
             </h2>
 
-            {/* Quote Card */}
-            <div className="rounded-xl sm:rounded-2xl border-l-4 border-l-[#d4a857] border border-[#d4a857]/50 bg-[#0a0514]/90 p-3 sm:p-5 shadow-[0_0_30px_rgba(0,0,0,0.9)] backdrop-blur-md md:p-6">
-              <h3 className="mb-1 text-sm font-black text-[#ffe8ad] drop-shadow-[0_2px_8px_rgba(0,0,0,1)] sm:mb-2 sm:text-base md:text-lg">
+            <div className="rounded-2xl border-l-4 border-l-[#d4a857] border border-[#d4a857]/50 bg-[#0a0514]/90 p-5 shadow-[0_0_30px_rgba(0,0,0,0.9)] backdrop-blur-md md:p-6">
+              <h3 className="mb-2 text-base font-black text-[#ffe8ad] drop-shadow-[0_2px_8px_rgba(0,0,0,1)] md:text-lg">
                 Why do We Celebrate Janmashtami?
               </h3>
 
-              <p className="text-[11px] font-bold leading-relaxed text-white drop-shadow-[0_2px_6px_rgba(0,0,0,1)] sm:text-xs md:text-sm">
+              <p className="text-xs font-bold leading-relaxed text-white drop-shadow-[0_2px_6px_rgba(0,0,0,1)] md:text-sm">
                 Janmashtami is a grand celebration to commemorate the appearance of Lord
                 Krishna, who is believed to be the Supreme Lord or the Lord of the Lords. It is
                 the celebration of joy, love, and divinity. The story of Krishna’s appearance
@@ -198,7 +198,7 @@ export default function AftermoviesSection() {
           </div>
 
           {/* Looping Numbers Grid */}
-          <div className="mt-4 grid grid-cols-2 gap-2.5 sm:mt-6 sm:gap-4">
+          <div className="mt-2 sm:mt-6 grid grid-cols-2 gap-2.5 sm:gap-4">
             {STATS.map((stat, idx) => (
               <StatCard
                 key={idx}
