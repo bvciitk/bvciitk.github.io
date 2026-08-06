@@ -54,7 +54,7 @@ export default function VolunteerModal() {
         createPortal(
           <div
             onClick={() => setIsOpen(false)}
-            className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/90 p-4 md:p-6 backdrop-blur-xl transition-all duration-300"
+            className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/90 p-3 sm:p-4 md:p-6 backdrop-blur-xl transition-all duration-300"
             style={{ animation: "fadeInModal 0.3s ease-out forwards" }}
           >
             <style jsx global>{`
@@ -83,7 +83,7 @@ export default function VolunteerModal() {
             {/* Modal Dialog Card */}
             <div
               onClick={(e) => e.stopPropagation()}
-              className="relative flex max-h-[85vh] w-full max-w-4xl flex-col overflow-hidden rounded-2xl sm:rounded-3xl border-2 border-[#d4a857] bg-gradient-to-b from-[#120826] via-[#0c051a] to-[#06020c] shadow-[0_0_80px_rgba(212,168,87,0.5)] md:flex-row"
+              className="relative flex max-h-[90vh] w-full max-w-4xl flex-col overflow-hidden rounded-2xl sm:rounded-3xl border-2 border-[#d4a857] bg-gradient-to-b from-[#120826] via-[#0c051a] to-[#06020c] shadow-[0_0_80px_rgba(212,168,87,0.5)] md:flex-row"
               style={{
                 animation:
                   "zoomInModal 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards",
@@ -92,53 +92,64 @@ export default function VolunteerModal() {
               {/* Close Button */}
               <button
                 onClick={() => setIsOpen(false)}
-                className="absolute top-2.5 right-2.5 z-30 flex h-7 w-7 sm:h-9 sm:w-9 items-center justify-center rounded-full border-2 border-[#ffe8ad] bg-[#a855f7] text-white font-black text-xs sm:text-sm shadow-[0_0_20px_rgba(168,85,247,0.8)] transition-all hover:scale-110 active:scale-95 hover:bg-[#c084fc]"
+                className="absolute top-2.5 right-2.5 z-30 flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full border-2 border-[#ffe8ad] bg-[#a855f7] text-white font-black text-xs sm:text-sm shadow-[0_0_20px_rgba(168,85,247,0.8)] transition-all hover:scale-110 active:scale-95 hover:bg-[#c084fc]"
                 title="Close (Esc)"
               >
                 ✕
               </button>
 
-              {/* LEFT COLUMN: Official Poster Image */}
-              <div className="relative flex shrink-0 items-center justify-center bg-[#070310] p-1.5 max-h-[16vh] md:max-h-none md:w-5/12 md:p-6">
-                <div className="relative max-h-full overflow-hidden rounded-lg sm:rounded-xl border border-[#ffe8ad] shadow-[0_0_20px_rgba(212,168,87,0.5)]">
+              {/* LEFT COLUMN: Official Poster Image (Enlarged) */}
+              <div className="relative flex shrink-0 items-center justify-center bg-[#070310] p-3 max-h-[44vh] sm:max-h-[50vh] md:max-h-none md:w-1/2 md:p-6 border-b border-[#d4a857]/30 md:border-b-0 md:border-r">
+                <div className="group relative max-h-full w-full flex items-center justify-center overflow-hidden rounded-xl border border-[#ffe8ad] shadow-[0_0_25px_rgba(212,168,87,0.6)] bg-black/40 cursor-pointer"
+                  onClick={() => {
+                    // Open image directly in new tab or enlarged window
+                    window.open("/Janmashtami/images/Participants.jpeg", "_blank");
+                  }}
+                  title="Click to view full resolution poster"
+                >
                   <img
                     src="/Janmashtami/images/Participants.jpeg"
                     alt="Call for Participation - Janmashtami '26 IITK"
-                    className="block h-auto max-h-[14vh] sm:max-h-[50vh] md:max-h-[70vh] w-auto rounded-[8px] object-contain"
+                    className="block h-auto max-h-[40vh] sm:max-h-[46vh] md:max-h-[72vh] w-auto max-w-full rounded-[10px] object-contain transition-transform duration-300 group-hover:scale-[1.03]"
                   />
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                    <span className="rounded-full border border-[#ffe8ad] bg-[#0c051a]/90 px-3 py-1 text-xs font-bold text-[#ffe8ad] shadow-lg">
+                      🔍 View Full Poster
+                    </span>
+                  </div>
                 </div>
               </div>
 
               {/* RIGHT COLUMN: Details & Form Link */}
-              <div className="flex flex-1 flex-col justify-between overflow-y-auto min-h-0 p-3 sm:p-5 md:p-7 scrollbar-none">
+              <div className="flex flex-1 flex-col justify-between overflow-y-auto min-h-0 p-4 sm:p-6 md:p-7 scrollbar-none">
                 <div>
                   {/* Top Badge */}
-                  <div className="mb-1.5 inline-flex items-center gap-1.5 rounded-full border border-[#d4a857]/50 bg-[#d4a857]/15 px-2.5 py-0.5 backdrop-blur-md">
-                    <span className="text-[9px] font-bold tracking-widest uppercase text-[#f0d68a] sm:text-[11px]">
+                  <div className="mb-2 inline-flex items-center gap-1.5 rounded-full border border-[#d4a857]/50 bg-[#d4a857]/15 px-3 py-1 backdrop-blur-md">
+                    <span className="text-[10px] font-bold tracking-widest uppercase text-[#f0d68a] sm:text-xs">
                       ✦ Call for Participation ✦
                     </span>
                   </div>
 
                   {/* Modal Title */}
                   <h2
-                    className="text-lg font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-[#ffe8ad] to-[#d4a857] drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] sm:text-3xl"
+                    className="text-xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-[#ffe8ad] to-[#d4a857] drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] sm:text-3xl"
                     style={{ fontFamily: "var(--font-heading)" }}
                   >
                     Janmashtami '26 IITK
                   </h2>
-                  <p className="mt-0.5 text-[11px] font-semibold text-white/80 sm:text-xs md:text-sm">
+                  <p className="mt-1 text-xs font-semibold text-white/80 sm:text-sm">
                     Be a part of the grandest celebration! Participate or volunteer:
                   </p>
 
-                  {/* Categories Grid (Compact horizontally scrollable row on mobile, grid on desktop) */}
-                  <div className="mt-2 flex overflow-x-auto gap-1.5 p-0.5 scrollbar-none sm:grid sm:grid-cols-2 sm:gap-2 text-[10px] sm:text-xs">
+                  {/* Categories Grid */}
+                  <div className="mt-3 flex overflow-x-auto gap-1.5 p-0.5 scrollbar-none sm:grid sm:grid-cols-2 sm:gap-2 text-xs">
                     {categories.map((cat, idx) => (
                       <div
                         key={idx}
-                        className="flex shrink-0 sm:shrink items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-2 py-1 backdrop-blur-sm transition-all hover:border-[#d4a857]/60 hover:bg-[#d4a857]/15"
+                        className="flex shrink-0 sm:shrink items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-2.5 py-1.5 backdrop-blur-sm transition-all hover:border-[#d4a857]/60 hover:bg-[#d4a857]/15"
                       >
                         <span className="text-xs sm:text-sm">{cat.icon}</span>
-                        <span className="font-bold text-[#f3e8ff] truncate text-[10px] sm:text-xs">
+                        <span className="font-bold text-[#f3e8ff] truncate text-xs">
                           {cat.label}
                         </span>
                       </div>
@@ -147,7 +158,7 @@ export default function VolunteerModal() {
                 </div>
 
                 {/* Bottom Action Area */}
-                <div className="mt-3 pt-2.5 border-t border-white/10 flex flex-col gap-2 sm:mt-6 sm:pt-4">
+                <div className="mt-4 pt-3 border-t border-white/10 flex flex-col gap-2 sm:mt-6 sm:pt-4">
                   {/* Google Form Link CTA */}
                   <a
                     href={GOOGLE_FORM_URL}

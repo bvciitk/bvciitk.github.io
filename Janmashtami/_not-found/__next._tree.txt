@@ -1,2 +1,2 @@
-:HL["/Janmashtami/_next/static/chunks/3ctnagyxefzll.css","style"]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"gYy9DLzVGSIs2ovLw5u_0"}
+:HL["/Janmashtami/_next/static/chunks/36mt7c_5tn__1.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"Ktcrdqz0G_0o3cs2CkCOg"}
