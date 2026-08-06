@@ -98,7 +98,8 @@ jQuery(document).on('ready', function ($) {
     --------------------------------*/
     var $videoModal = $(".video-area-popup");
     $videoModal.modalVideo({
-        channel: 'youtube'
+        channel: 'youtube',
+        ratio: '19:6'
     });
 
 

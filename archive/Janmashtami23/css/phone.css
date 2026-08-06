@@ -1,0 +1,88 @@
+/* Navigation */
+#navbar{
+    flex-direction: column;
+}
+
+#navbar ul {
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#navbar ul li a{
+    font-size: 1 rem;
+    padding: 0px 7px;
+    padding-bottom: 8px;
+}
+
+
+/* Home section */
+#home{
+    height: 370px;
+    padding: 3px 28px;
+}
+
+#home::before{
+    height: 515px;
+}
+
+#home p{
+    font-size: 13px;
+}
+
+/* Events section */
+/* #Events{
+    flex-direction: column;
+} */
+
+#Events .box{
+    padding: 5px;
+    /* width:100%; */
+    margin: 2px 7px; 
+    margin-bottom: 20px;
+}
+
+/* Contact-us section */
+#Contact-us .box {
+    padding: 15px;
+    margin: 16px 16px;
+    width: 350px;
+}
+@media screen and (max-width: 340px){
+#Contact-us .box #BVC{
+    padding: 30px;
+}
+}
+
+/* Footer */
+
+
+/* Utility classes */
+.h-primary{
+    font-size: 26px;
+}
+
+.h-secondary{
+    font-size: 18px;
+}
+
+@media screen and (max-width: 823px){
+    .google-map iframe {
+        height: 150px;
+        width: 220px;
+    }
+}
+
+@media screen and (max-width: 373px){
+    .h-primary{
+        font-size: 20px;
+    }
+    
+    #home p{
+        font-size: 10px;
+    }
+
+    #Contact-us .box {
+        width: 200px;
+        font-size: 12px;
+    }
+}

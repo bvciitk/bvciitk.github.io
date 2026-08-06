@@ -1,0 +1,12 @@
+.git
+.git/**
+.github
+node_modules
+.next
+out
+janmashtami_by_ai/node_modules
+janmashtami_by_ai/.next
+janmashtami_by_ai/out
+
+!**/_next/**
+!**/_next
